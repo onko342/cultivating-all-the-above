@@ -1,0 +1,74 @@
+﻿body {
+    background-color: #252525;
+    font-family: DotGothic16;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 12px;
+    color: white;
+}
+@font-face {
+    font-family: DotGothic16;
+    src: url(fonts/DotGothic16-Regular.ttf);
+}
+
+.dashboard-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: flex-start;
+    padding: 5px;
+}
+
+.game-box {
+    background: #1963b4;
+    border: 5px solid #00ffff;
+    padding-left: 10px;
+}
+
+#stats-box {
+    width: 375px;
+    height: 400px;
+}
+
+#inventory-box {
+    position: relative;
+    width: 375px;
+    height: 450px;
+    top: 5px;
+}
+
+#location-top-box {
+    width: 450px;
+    height: 250px;
+}
+
+#central-box {
+    position: relative;
+    width: 450px;
+    height: 600px;
+    top: 5px;
+}
+
+#cultivation-box {
+    width: 425px;
+    height: 450px;
+}
+
+#skills-box {
+    position: relative;
+    width: 425px;
+    height: 400px;
+    top: 5px;
+}
+
+#log-box {
+    width: 325px;
+    height: 600px;
+}
+
+#misc-box {
+    position: relative;
+    width: 325px;
+    height: 250px;
+    top: 5px;
+}
