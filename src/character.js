@@ -99,6 +99,7 @@ character.UI_unlocks = {
     log_box: false,
     location_top_box: false,
     cultivation_box: false,
+    misc_box: false,
     //add other UI unlocks here
 }
 
