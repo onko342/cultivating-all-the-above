@@ -1,4 +1,12 @@
-﻿const character = new Player();
+﻿import { InventoryOwner } from "./content/inventory.js";
+
+class Player extends InventoryOwner {
+    constructor() {
+        super();
+    }
+}
+
+const character = new Player();
 character.name = "Player";
 character.race = "human";
 character.gender = "male";

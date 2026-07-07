@@ -11,7 +11,7 @@ const box_elements = {
 }
 
 function updateBoxUnlocks() {
-    for (const [unlock_key, box_element]) of Object.entries(box_elements)) {
+    for (const [unlock_key, box_element] of Object.entries(box_elements)) {
         if (!box_element) continue;
 
         const is_unlocked = character.UI_unlocks[unlock_key];
