@@ -11,6 +11,50 @@
     src: url(fonts/ZenKakuGothicAntique-Regular.ttf)
 }
 
+@supports selector(::-webkit-scrollbar) {
+    .dashboard-flex-container::-webkit-scrollbar,
+    .resizable-box::-webkit-scrollbar,
+    .tab-content-area::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    .dashboard-flex-container::-webkit-scrollbar-track,
+    .resizable-box::-webkit-scrollbar-track,
+    .tab-content-area::-webkit-scrollbar-track {
+        background: #171e84;
+    }
+
+    .dashboard-flex-container::-webkit-scrollbar-thumb,
+    .resizable-box::-webkit-scrollbar-thumb,
+    .tab-content-area::-webkit-scrollbar-thumb {
+        background: #8677cf;
+    }
+
+        .dashboard-flex-container::-webkit-scrollbar-thumb:hover,
+        .resizable-box::-webkit-scrollbar-thumb:hover,
+        .tab-content-area::-webkit-scrollbar-thumb:hover {
+            background: #a49ad4;
+        }
+
+    .dashboard-flex-container::-webkit-scrollbar-button,
+    .resizable-box::-webkit-scrollbar-button,
+    .tab-content-area::-webkit-scrollbar-button {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    .dashboard-flex-container,
+    .resizable-box,
+    .tab-content-area {
+        scrollbar-width: thin;
+        scrollbar-color: #4933ba #171e84;
+    }
+}
+
 .dashboard-flex-container {
     display: flex;
     flex-wrap: nowrap;
