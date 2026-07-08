@@ -13,40 +13,185 @@
     <main class="dashboard-flex-container">
         <section>
             <div id="stats-box" class="game-box">
-
+                <div class="tab-container">
+                    <div class="tab-content-area">
+                        <div class="tab-panel active-tab" data-tab-panel="stats-core">
+                            CORE STATS (most important/fundamental)
+                        </div>
+                        <div class="tab-panel" data-tab-panel="stats-detailed">
+                            DETAILED STATS (include everything on core page + extra details)
+                        </div>
+                    </div>
+                    <div class="tab-buttons bottom-buttons">
+                        <button class="tab-button active-tab" data-tab-target="stats-core">STAT</button>
+                        <button class="tab-button" data-tab-target="stats-detailed">DTLD</button>
+                    </div>
+                </div>
             </div>
-            <div id="inventory-box" class="game-box">
-                <h3>Inventory</h3>
+            <div id="inventory-box" class="game-box resizable-box">
+                <div class="tab-container">
+                    <div class="tab-content-area">
+                        <!--This part has no tab switching buttons because it's only used by inventory-->
+                        <!--Filtering and sorting buttons use separate logic-->
+                        <div class="tab-panel active-tab" data-tab-panel="inventory">
+                            INVENTORY
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section>
-            <div id="location-top-box" class="game-box">
-                <h3>Placeholder: Location Name, Date/Time</h3>
-                <br>Placeholder 2: other section for description
+            <div id="location-top-box" class="game-box resizable-box">
+                <div class="tab-container">
+                    <div class="tab-buttons top-buttons">
+                        <button class="tab-button active-tab" data-tab-target="current">CURR</button>
+                        <button class="tab-button" data-tab-target="local">LOCL</button>
+                        <button class="tab-button" data-tab-target="world">WRLD</button>
+                    </div>
+                    <div class="tab-content-area">
+                        <div class="tab-panel active-tab" data-tab-panel="current">
+                            CURRENT LOCATION
+                        </div>
+                        <div class="tab-panel" data-tab-panel="local">
+                            LOCAL MAP
+                        </div>
+                        <div class="tab-panel tabs-nested" data-tab-panel="world">
+                            <div class="tab-container">
+                                <div class="tab-buttons top-buttons">
+                                    <button class="tab-button active-tab" data-tab-target="modern-world">MDRN</button>
+                                    <button class="tab-button" data-tab-target="cultivation-world">CTVN</button>
+                                </div>
+                                <div class="tab-content-area">
+                                    <div class="tab-panel active-tab" data-tab-panel="modern-world">
+                                        MODERN WORLD MAP
+                                    </div>
+                                    <div class="tab-panel" data-tab-panel="cultivation-world">
+                                        CULTIVATION WORLD MAP
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div id="central-box" class="game-box is-unlocked">
-                placeholder center box text
+            <div id="central-box" class="game-box is-unlocked resizable-box">
+                <div class="tab-container">
+                    <div class="tab-content-area">
+                        <div class="tab-panel" data-tab-panel="craft">
+                            CRAFTING
+                        </div>
+                        <div class="tab-panel" data-tab-panel="combat">
+                            COMBAT
+                        </div>
+                        <div class="tab-panel" data-tab-panel="gather">
+                            GATHERING
+                        </div>
+                        <div class="tab-panel active-tab" data-tab-panel="location">
+                            MOVE BETWEEN LOCATIONS
+                        </div>
+                        <div class="tab-panel" data-tab-panel="train">
+                            TRAINING
+                        </div>
+                        <div class="tab-panel" data-tab-panel="cultivate">
+                            ABSORB QI
+                        </div>
+                        <!--Below: character creation panel that should only be activated through code-->
+                        <div class="tab-panel" data-tab-panel="char-creation">
+                            START CHARACTER CREATION HERE
+                        </div>
+                    </div>
+                    <div class="tab-buttons bottom-buttons">
+                        <button class="tab-button" data-tab-target="craft">CRFT</button>
+                        <button class="tab-button" data-tab-target="combat">CMBT</button>
+                        <button class="tab-button" data-tab-target="gather">GTHR</button>
+                        <button class="tab-button active-tab" data-tab-target="location">LOCN</button>
+                        <button class="tab-button" data-tab-target="train">TRAN</button>
+                        <button class="tab-button" data-tab-target="cultivate">CTVT</button>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section>
-            <div id="cultivation-box" class="game-box">
+            <div id="cultivation-box" class="game-box resizable-box">
+                <div class="tab-container">
+                    <div class="tab-buttons top-buttons">
+                        <button class="tab-button active-tab" data-tab-target="qi-cultivation">&nbsp;QI&nbsp;</button>
+                        <button class="tab-button" data-tab-target="body-cultivation">BODY</button>
+                        <button class="tab-button" data-tab-target="soul-cultivation">SOUL</button>
+                        <button class="tab-button" data-tab-target="bloodline">BDLN</button>
+                        <button class="tab-button" data-tab-target="stellar-cultivation">STLR</button>
+                    </div>
+                    <div class="tab-content-area">
+                        <div class="tab-panel active-tab" data-tab-panel="qi-cultivation">
+                            QI CULTIVATION
+                        </div>
+                        <div class="tab-panel" data-tab-panel="body-cultivation">
+                            BODY CULTIVATION
+                        </div>
+                        <div class="tab-panel" data-tab-panel="soul-cultivation">
+                            SOUL CULTIVATION
+                        </div>
+                        <div class="tab-panel" data-tab-panel="bloodline">
+                            BLOODLINE DEVELOPMENT
+                        </div>
+                        <div class="tab-panel" data-tab-panel="stellar-cultivation">
+                            STELLAR CULTIVATION
+                        </div>
+                    </div>
 
+                </div>
             </div>
 
-            <div id="skills-box" class="game-box">
-
+            <div id="skills-box" class="game-box resizable-box">
+                <div class="tab-container">
+                    <div class="tab-content-area">
+                        <div class="tab-panel active-tab" data-tab-panel="skills">
+                            SKILLS
+                        </div>
+                        <div class="tab-panel" data-tab-panel="techniques">
+                            TECHNIQUES (passive / some need to be enabled)
+                        </div>
+                        <div class="tab-panel" data-tab-panel="arts">
+                            MYSTICAL ARTS (active, automation may come later)
+                        </div>
+                    </div>
+                    <div class="tab-buttons bottom-buttons">
+                        <button class="tab-button active-tab" data-tab-target="skills">SKIL</button>
+                        <button class="tab-button" data-tab-target="techniques">TECH</button>
+                        <button class="tab-button" data-tab-target="arts">ARTS</button>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section>
-            <div id="log-box" class="game-box">
+            <div id="log-box" class="game-box resizable-box">
+                <div class="tab-container">
+                    <div class="tab-content-area">
+                        <!--Only one tab here (no buttons): just the logs-->
+                        <!--Log filtering logic separate-->
+                        <div class="tab-panel active-tab" data-tab-panel="log">
+                            MESSAGE LOG
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div id="misc-box" class="game-box">
-
+            <div id="misc-box" class="game-box resizable-box">
+                <div class="tab-container">
+                    <div class="tab-content-area">
+                        <div class="tab-panel active-tab" data-tab-panel="misc-stats">
+                            MISC STATS
+                        </div>
+                    </div>
+                    <div class="tab-buttons bottom-buttons">
+                        <button class="tab-button active-tab" data-tab-target="misc-stats">MISC</button>
+                        <!--Other tabs here? When there is need for more-->
+                    </div>
+                </div>
             </div>
         </section>
     </main>

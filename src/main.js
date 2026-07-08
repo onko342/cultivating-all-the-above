@@ -1,5 +1,10 @@
 ﻿import { character } from "./character.js";
-import { updateBoxUnlocks } from "./display.js";
+import { updateBoxUnlocks, initTabs } from "./display.js";
 
-character.UI_unlocks.stats_box = true;
+//all boxes shown for testing purposes
+Object.keys(character.UI_unlocks).forEach(box => {
+    character.unlockBox(box);
+})
+
 updateBoxUnlocks();
+initTabs();

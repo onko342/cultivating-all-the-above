@@ -13,22 +13,84 @@
 
 .dashboard-flex-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 5px;
     align-items: flex-start;
     padding: 5px;
+    overflow-x: auto;
 }
 
 .game-box {
-    background: linear-gradient(to top right, #353d9e, #833cc8);
-    border: 5px outset #00ffff;
-    padding-left: 10px;
+    background: linear-gradient(to top right, #252c8b, #4933ba, #9148d7);
+    border: 5px outset #aee7fb;
     opacity: 0;
     transition: opacity 0.5s ease
 }
 
 .game-box.is-unlocked {
     opacity: 1;
+}
+
+.resizable-box {
+    resize: vertical;
+    overflow: auto;
+    min-height: 100px;
+    max-height: 700px;
+}
+
+.tab-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tab-buttons {
+    display: flex;
+    flex-shrink: 0;
+    gap: 2px;
+    background: #171e84;
+}
+
+.tab-buttons.top-buttons {
+    border-bottom: solid 1px white;
+}
+
+.tab-buttons.bottom-buttons {
+    border-top: solid 1px white;
+}
+
+.tab-content-area {
+    flex: 1;
+    overflow: auto;
+    min-height: 0;
+}
+
+.tab-panel {
+    display: none;
+    padding-left: 5px;
+}
+
+.tab-panel.tabs-nested {
+    padding-left: 0px;
+}
+
+.tab-panel.active-tab {
+    display: block;
+    height: 100%;
+}
+
+.tab-button {
+    background: #333a99;
+    border: none;
+    color: white;
+    font-family: ZenKakuGothicAntique;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+}
+
+.tab-button.active-tab {
+    background: #3f60a3;
 }
 
 #stats-box {

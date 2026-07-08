@@ -19,4 +19,25 @@ function updateBoxUnlocks() {
     }
 }
 
-export { updateBoxUnlocks };
+function initTabs() {
+    const tab_containers = document.querySelectorAll('.tab-container');
+
+    tab_containers.forEach((container) => {
+        const buttons = container.querySelectorAll(':scope > .tab-buttons > .tab-button');
+        const panels = container.querySelectorAll(':scope > .tab-content-area > .tab-panel');
+
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                buttons.forEach((b) => b.classList.remove('active-tab'));
+                panels.forEach((p) => p.classList.remove('active-tab'));
+
+                button.classList.add('active-tab');
+                container
+                    .querySelector(`:scope > .tab-content-area > [data-tab-panel="${button.dataset.tabTarget}"]`)
+                    .classList.add('active-tab');
+            })
+        })
+    })
+}
+
+export { updateBoxUnlocks, initTabs };

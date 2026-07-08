@@ -111,4 +111,8 @@ character.UI_unlocks = {
     //add other UI unlocks here
 }
 
+character.unlockBox = function (key) {
+    character.UI_unlocks[key] = true;
+}
+
 export { character };
