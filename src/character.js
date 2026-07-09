@@ -11,7 +11,7 @@ character.name = "Player";
 character.race = "human";
 character.gender = "male";
 character.height = 170;
-character.achievements = {};
+character.titles = {};
 character.base_stats = {
     //resource stats (many things contribute)
     max_health: 100,
@@ -86,6 +86,21 @@ character.base_stats = {
 };
 character.stats = {};
 character.stats.full = { ...character.base_stats };
+
+character.misc_stats = {
+    //total kill count isn't listed here since it's to be summed from enemies
+    death_count: 0,
+    playtime: 0,
+    //total ingame time passed not listed here
+    //total craft count summed from recipes, not listed here
+    //total craft fail count same as above
+    total_money_earned: 0,
+    items_gained: 0, //increment by 1 for every time an item is gained, this should equal the bottom 4 summed
+    items_from_drops: 0, //only enemy drops here
+    items_from_crafts: 0, //from crafting, some recipes may craft multiple items at a time
+    items_from_traders: 0, //bought
+    items_from_rewards: 0, //storyline rewards, etc.
+};
 
 character.stats.flat_bonuses = {
 
