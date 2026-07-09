@@ -18,21 +18,21 @@
                 <div class="tab-container">
                     <div class="tab-content-area">
                         <div class="tab-panel active-tab" data-tab-panel="stats-core">
-                            CORE STATS (most important/fundamental)
+                            <div data-i18n="ui.stats_box.tab_panel_stats">CORE STATS (most important/fundamental)</div>
                             <!--Note to self: Large chinese numbers will definitely break the stats page-->
                             <!--Have to implement auto text shrinking to account for this-->
                         </div>
                         <div class="tab-panel" data-tab-panel="equipment">
-                            EQUIPMENT
+                            <div data-i18n="ui.stats_box.tab_panel_equipment">EQUIPMENT</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="stats-detailed">
-                            DETAILED STATS (include everything on core page + extra details)
+                            <div data-i18n="ui.stats_box.tab_panel_stats_detailed">DETAILED STATS (include everything on core page + extra details)</div>
                         </div>
                     </div>
                     <div class="tab-buttons bottom-buttons">
-                        <button class="tab-button active-tab" data-tab-target="stats-core">STAT</button>
-                        <button class="tab-button" data-tab-target="equipment">EQMT</button>
-                        <button class="tab-button" data-tab-target="stats-detailed">DTLD</button>
+                        <button class="tab-button active-tab" data-tab-target="stats-core" data-i18n="ui.stats_box.tab_button_stats">STAT</button>
+                        <button class="tab-button" data-tab-target="equipment" data-i18n="ui.stats_box.tab_button_equipment">EQMT</button>
+                        <button class="tab-button" data-tab-target="stats-detailed" data-i18n="ui.stats_box.tab_button_stats_detailed">DTLD</button>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                         <!--This part has no tab switching buttons because it's only used by inventory-->
                         <!--Filtering and sorting buttons use separate logic-->
                         <div class="tab-panel active-tab" data-tab-panel="inventory">
-                            INVENTORY
+                            <div data-i18n="ui.inventory_box.tab_panel_inventory">INVENTORY</div>
                         </div>
                     </div>
                 </div>
@@ -53,29 +53,29 @@
             <div id="location-top-box" class="game-box resizable-box">
                 <div class="tab-container">
                     <div class="tab-buttons top-buttons">
-                        <button class="tab-button active-tab" data-tab-target="current">CURR</button>
-                        <button class="tab-button" data-tab-target="local">LOCL</button>
-                        <button class="tab-button" data-tab-target="world">WRLD</button>
+                        <button class="tab-button active-tab" data-tab-target="current" data-i18n="ui.location_top_box.tab_button_current">CURR</button>
+                        <button class="tab-button" data-tab-target="local" data-i18n="ui.location_top_box.tab_button_local">LOCL</button>
+                        <button class="tab-button" data-tab-target="world" data-i18n="ui.location_top_box.tab_button_world">WRLD</button>
                     </div>
                     <div class="tab-content-area">
                         <div class="tab-panel active-tab" data-tab-panel="current">
-                            CURRENT LOCATION
+                            <div data-i18n="ui.location_top_box.tab_panel_current">CURRENT LOCATION</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="local">
-                            LOCAL MAP
+                            <div data-i18n="ui.location_top_box.tab_panel_local">LOCAL MAP</div>
                         </div>
                         <div class="tab-panel tabs-nested" data-tab-panel="world">
                             <div class="tab-container">
                                 <div class="tab-buttons top-buttons">
-                                    <button class="tab-button active-tab" data-tab-target="modern-world">MDRN</button>
-                                    <button class="tab-button" data-tab-target="cultivation-world">CTVN</button>
+                                    <button class="tab-button active-tab" data-tab-target="modern-world" data-i18n="ui.location_top_box.tab_button_modern">MDRN</button>
+                                    <button class="tab-button" data-tab-target="cultivation-world" data-i18n="ui.location_top_box.tab_button_cultivation">CTVN</button>
                                 </div>
                                 <div class="tab-content-area">
                                     <div class="tab-panel active-tab" data-tab-panel="modern-world">
-                                        MODERN WORLD MAP
+                                        <div data-i18n="ui.location_top_box.tab_panel_modern">MODERN WORLD MAP</div>
                                     </div>
                                     <div class="tab-panel" data-tab-panel="cultivation-world">
-                                        CULTIVATION WORLD MAP
+                                        <div data-i18n="ui.location_top_box.tab_panel_cultivation">CULTIVATION WORLD MAP</div>
                                     </div>
                                 </div>
                             </div>
@@ -88,35 +88,35 @@
                 <div class="tab-container">
                     <div class="tab-content-area">
                         <div class="tab-panel" data-tab-panel="craft">
-                            CRAFTING
+                            <div data-i18n="ui.central_box.tab_panel_craft">CRAFTING</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="combat">
-                            COMBAT
+                            <div data-i18n="ui.central_box.tab_panel_combat">COMBAT</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="gather">
-                            GATHERING
+                            <div data-i18n="ui.central_box.tab_panel_gather">GATHERING</div>
                         </div>
                         <div class="tab-panel active-tab" data-tab-panel="location">
-                            MOVE BETWEEN LOCATIONS
+                            <div data-i18n="ui.central_box.tab_panel_location">MOVE BETWEEN LOCATIONS</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="train">
-                            TRAINING
+                            <div data-i18n="ui.central_box.tab_panel_train">TRAINING</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="cultivate">
-                            ABSORB QI
+                            <div data-i18n="ui.central_box.tab_panel_cultivate">ABSORB QI</div>
                         </div>
                         <!--Below: character creation panel that should only be activated through code-->
                         <div class="tab-panel" data-tab-panel="char-creation">
-                            START CHARACTER CREATION HERE
+                            <div data-i18n="ui.central_box.tab_panel_char_creation">START CHARACTER CREATION HERE</div>
                         </div>
                     </div>
                     <div class="tab-buttons bottom-buttons">
-                        <button class="tab-button" data-tab-target="craft">CRFT</button>
-                        <button class="tab-button" data-tab-target="combat">CMBT</button>
-                        <button class="tab-button" data-tab-target="gather">GTHR</button>
-                        <button class="tab-button active-tab" data-tab-target="location">LOCN</button>
-                        <button class="tab-button" data-tab-target="train">TRAN</button>
-                        <button class="tab-button" data-tab-target="cultivate">CTVT</button>
+                        <button class="tab-button" data-tab-target="craft" data-i18n="ui.central_box.tab_button_craft">CRFT</button>
+                        <button class="tab-button" data-tab-target="combat" data-i18n="ui.central_box.tab_button_combat">CMBT</button>
+                        <button class="tab-button" data-tab-target="gather" data-i18n="ui.central_box.tab_button_gather">GTHR</button>
+                        <button class="tab-button active-tab" data-tab-target="location" data-i18n="ui.central_box.tab_button_location">LOCN</button>
+                        <button class="tab-button" data-tab-target="train" data-i18n="ui.central_box.tab_button_train">TRAN</button>
+                        <button class="tab-button" data-tab-target="cultivate" data-i18n="ui.central_box.tab_button_cultivate">CTVT</button>
                     </div>
                 </div>
             </div>
@@ -126,30 +126,29 @@
             <div id="cultivation-box" class="game-box resizable-box">
                 <div class="tab-container">
                     <div class="tab-buttons top-buttons">
-                        <button class="tab-button active-tab" data-tab-target="qi-cultivation">&nbsp;QI&nbsp;</button>
-                        <button class="tab-button" data-tab-target="body-cultivation">BODY</button>
-                        <button class="tab-button" data-tab-target="soul-cultivation">SOUL</button>
-                        <button class="tab-button" data-tab-target="bloodline">BDLN</button>
-                        <button class="tab-button" data-tab-target="stellar-cultivation">STLR</button>
+                        <button class="tab-button active-tab" data-tab-target="qi-cultivation" data-i18n="ui.cultivation_box.tab_button_qi_cultivation">&nbsp;QI&nbsp;</button>
+                        <button class="tab-button" data-tab-target="body-cultivation" data-i18n="ui.cultivation_box.tab_button_body_cultivation">BODY</button>
+                        <button class="tab-button" data-tab-target="soul-cultivation" data-i18n="ui.cultivation_box.tab_button_soul_cultivation">SOUL</button>
+                        <button class="tab-button" data-tab-target="bloodline" data-i18n="ui.cultivation_box.tab_button_bloodline">BDLN</button>
+                        <button class="tab-button" data-tab-target="stellar-cultivation" data-i18n="ui.cultivation_box.tab_button_stellar_cultivation">STLR</button>
                     </div>
                     <div class="tab-content-area">
                         <div class="tab-panel active-tab" data-tab-panel="qi-cultivation">
-                            QI CULTIVATION
+                            <div data-i18n="ui.cultivation_box.tab_panel_qi_cultivation">QI CULTIVATION</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="body-cultivation">
-                            BODY CULTIVATION
+                            <div data-i18n="ui.cultivation_box.tab_panel_body_cultivation">BODY CULTIVATION</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="soul-cultivation">
-                            SOUL CULTIVATION
+                            <div data-i18n="ui.cultivation_box.tab_panel_soul_cultivation">SOUL CULTIVATION</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="bloodline">
-                            BLOODLINE DEVELOPMENT
+                            <div data-i18n="ui.cultivation_box.tab_panel_bloodline">BLOODLINE DEVELOPMENT</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="stellar-cultivation">
-                            STELLAR CULTIVATION
+                            <div data-i18n="ui.cultivation_box.tab_panel_stellar_cultivation">STELLAR CULTIVATION</div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -157,19 +156,19 @@
                 <div class="tab-container">
                     <div class="tab-content-area">
                         <div class="tab-panel active-tab" data-tab-panel="skills">
-                            SKILLS
+                            <div data-i18n="ui.skills_box.tab_panel_skills">SKILLS</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="techniques">
-                            TECHNIQUES (passive / some need to be enabled)
+                            <div data-i18n="ui.skills_box.tab_panel_techniques">TECHNIQUES (passive / some need to be enabled)</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="arts">
-                            MYSTICAL ARTS (active, automation may come later)
+                            <div data-i18n="ui.skills_box.tab_panel_arts">MYSTICAL ARTS (active, automation may come later)</div>
                         </div>
                     </div>
                     <div class="tab-buttons bottom-buttons">
-                        <button class="tab-button active-tab" data-tab-target="skills">SKIL</button>
-                        <button class="tab-button" data-tab-target="techniques">TECH</button>
-                        <button class="tab-button" data-tab-target="arts">ARTS</button>
+                        <button class="tab-button active-tab" data-tab-target="skills" data-i18n="ui.skills_box.tab_button_skills">SKIL</button>
+                        <button class="tab-button" data-tab-target="techniques" data-i18n="ui.skills_box.tab_button_techniques">TECH</button>
+                        <button class="tab-button" data-tab-target="arts" data-i18n="ui.skills_box.tab_button_arts">ARTS</button>
                     </div>
                 </div>
             </div>
@@ -182,7 +181,7 @@
                         <!--Only one tab here (no buttons): just the logs-->
                         <!--Log filtering logic separate-->
                         <div class="tab-panel active-tab" data-tab-panel="log">
-                            MESSAGE LOG
+                            <div data-i18n="ui.log_box.tab_panel_log">MESSAGE LOG</div>
                         </div>
                     </div>
                 </div>
@@ -192,15 +191,15 @@
                 <div class="tab-container">
                     <div class="tab-content-area">
                         <div class="tab-panel active-tab" data-tab-panel="paths">
-                            PATHS
+                            <div data-i18n="ui.misc_box.tab_panel_paths">PATHS</div>
                         </div>
                         <div class="tab-panel" data-tab-panel="misc-stats">
-                            MISC STATS
+                            <div data-i18n="ui.misc_box.tab_panel_misc_stats">MISC STATS</div>
                         </div>
                     </div>
                     <div class="tab-buttons bottom-buttons">
-                        <button class="tab-button active-tab" data-tab-target="paths">PATH</button>
-                        <button class="tab-button" data-tab-target="misc-stats">MISC</button>
+                        <button class="tab-button active-tab" data-tab-target="paths" data-i18n="ui.misc_box.tab_button_paths">PATH</button>
+                        <button class="tab-button" data-tab-target="misc-stats" data-i18n="ui.misc_box.tab_button_misc_stats">MISC</button>
                         <!--Other tabs here? When there is need for more-->
                     </div>
                 </div>
@@ -209,14 +208,14 @@
     </main>
     <footer id="status-bar" class="status-bar">
         <div class="status-bar-left">
-            <button class="status-item" id="settings-button"><i class="material-symbols-outlined">settings</i></button>
-            <button class="status-item" id="save-button"><i class="material-symbols-outlined">save</i></button>
-            <button class="status-item" id="export-button"><i class="material-symbols-outlined">download</i></button>
-            <button class="status-item" id="import-button"><i class="material-symbols-outlined">upload</i></button>
-            <div class="status-item" id="changelog-button"><a href="changelog.html" target="_blank">&nbsp;v0.0.2.5&nbsp;</a></div>
+            <button class="status-item" id="settings-button" data-i18n-attr="title:ui.status_bar.settings_tooltip"><i class="material-symbols-outlined">settings</i></button>
+            <button class="status-item" id="save-button" data-i18n-attr="title:ui.status_bar.save_tooltip"><i class="material-symbols-outlined">save</i></button>
+            <button class="status-item" id="export-button" data-i18n-attr="title:ui.status_bar.export_tooltip"><i class="material-symbols-outlined">download</i></button>
+            <button class="status-item" id="import-button" data-i18n-attr="title:ui.status_bar.import_tooltip"><i class="material-symbols-outlined">upload</i></button>
+            <div class="status-item" id="changelog-button" data-i18n-attr="title:ui.status_bar.changelog_tooltip"><a href="changelog.html" target="_blank">&nbsp;v0.0.3.0&nbsp;</a></div>
         </div>
         <div class="status-bar-right">
-            <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fonko342.github.io%2Fcultivating-all-the-above%2F&label=&icon=play-fill&color=%238540f5&message=&style=flat&tz=Asia%2FTaipei">
+            <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fonko342.github.io%2Fcultivating-all-the-above%2F&label=&icon=play-fill&color=%238540f5&message=&style=flat&tz=Asia%2FTaipei" data-i18n-attr="title:ui.status_bar.hitscounter_tooltip">
         </div>
     </footer>
 </body>

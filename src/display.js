@@ -10,7 +10,7 @@ const box_elements = {
     misc_box: document.getElementById('misc-box'),
 }
 
-function updateBoxUnlocks() {
+export function updateBoxUnlocks() {
     for (const [unlock_key, box_element] of Object.entries(box_elements)) {
         if (!box_element) continue;
 
@@ -19,7 +19,7 @@ function updateBoxUnlocks() {
     }
 }
 
-function initTabs() {
+export function initTabs() {
     const tab_containers = document.querySelectorAll('.tab-container');
 
     tab_containers.forEach((container) => {
@@ -39,5 +39,3 @@ function initTabs() {
         })
     })
 }
-
-export { updateBoxUnlocks, initTabs };

@@ -1,3 +1,90 @@
 {
-
+  "ui": {
+    "stats_box": {
+      "tab_button_stats": "STAT",
+      "tab_button_equipment": "EQMT",
+      "tab_button_stats_detailed": "DTLD",
+      "DUMMY-ENTRY-COMMENT-1": "The 3 below are PLACEHOLDERS, will be removed!",
+      "tab_panel_stats": "CORE STATS (most important/fundamental)",
+      "tab_panel_equipment": "EQUIPMENT",
+      "tab_panel_stats_detailed": "DETAILED STATS (include everything on core page + extra details)"
+    },
+    "inventory_box": {
+      "DUMMY-ENTRY-COMMENT-1": "Below is PLACEHOLDER text",
+      "tab_panel_inventory": "INVENTORY"
+    },
+    "location_top_box": {
+      "tab_button_current": "CURR",
+      "tab_button_local": "LOCL",
+      "tab_button_world": "WRLD",
+      "tab_button_modern": "MDRN",
+      "tab_button_cultivation": "CTVN",
+      "DUMMY-ENTRY-COMMENT-1": "The 4 below are PLACEHOLDER TEXT, will be removed!",
+      "tab_panel_current": "CURRENT LOCATION",
+      "tab_panel_local": "LOCAL MAP",
+      "tab_panel_modern": "MODERN WORLD MAP",
+      "tab_panel_cultivation": "CULTIVATION WORLD MAP"
+    },
+    "central_box": {
+      "tab_button_craft": "CRFT",
+      "tab_button_combat": "CMBT",
+      "tab_button_gather": "GTHR",
+      "tab_button_location": "LOCN",
+      "tab_button_train": "TRAN",
+      "tab_button_cultivate": "CTVT",
+      "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
+      "tab_panel_craft": "CRAFTING",
+      "tab_panel_combat": "COMBAT",
+      "tab_panel_gather": "GATHERING",
+      "tab_panel_location": "MOVE BETWEEN LOCATIONS",
+      "tab_panel_train": "TRAINING",
+      "tab_panel_cultivate": "ABSORB QI",
+      "tab_panel_char_creation": "START CHARACTER CREATION HERE"
+    },
+    "cultivation_box": {
+      "tab_button_qi_cultivation": "QI",
+      "tab_button_body_cultivation": "BODY",
+      "tab_button_soul_cultivation": "SOUL",
+      "tab_button_bloodline": "BDLN",
+      "tab_button_stellar_cultivation": "STLR",
+      "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
+      "tab_panel_qi_cultivation": "QI CULTIVATION",
+      "tab_panel_body_cultivation": "BODY CULTIVATION",
+      "tab_panel_soul_cultivation": "SOUL CULTIVATION",
+      "tab_panel_bloodline": "BLOODLINE DEVELOPMENT",
+      "tab_panel_stellar_cultivation": "STELLAR CULTIVATION"
+    },
+    "skills_box": {
+      "tab_button_skills": "SKIL",
+      "tab_button_techniques": "TECH",
+      "tab_button_arts": "ARTS",
+      "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
+      "tab_panel_skills": "SKILLS",
+      "tab_panel_techniques": "TECHNIQUES (passive / some need to be enabled)",
+      "tab_panel_arts": "MYSTICAL ARTS (active, automation may come later)"
+    },
+    "log_box": {
+      "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
+      "tab_panel_log": "MESSAGE LOG"
+    },
+    "misc_box": {
+      "tab_button_paths": "PATH",
+      "tab_button_misc_stats": "MISC",
+      "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
+      "tab_panel_paths": "PATHS",
+      "tab_panel_misc_stats": "MISC STATS"
+    },
+    "status_bar": {
+      "settings_tooltip": "Settings",
+      "save_tooltip": "Save",
+      "export_tooltip": "Export",
+      "import_tooltip": "Import",
+      "changelog_tooltip": "Changelog",
+      "hitscounter_tooltip": "Total playcount (today UTC+8 / all time)"
+    }
+  },
+  "log": {
+    "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDER example of item gain text",
+    "item_gained": "You gained {item} x{count}."
+  }
 }

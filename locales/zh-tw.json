@@ -1,3 +1,90 @@
 {
-
+  "ui": {
+    "stats_box": {
+      "tab_button_stats": "屬性",
+      "tab_button_equipment": "裝備",
+      "tab_button_stats_detailed": "詳細",
+      "DUMMY-ENTRY-COMMENT-1": "The 3 below are PLACEHOLDERS, will be removed!",
+      "tab_panel_stats": "核心屬性（最重要/最基本）",
+      "tab_panel_equipment": "裝備",
+      "tab_panel_stats_detailed": "詳細屬性（包含核心頁面所有內容及更多細節）"
+    },
+    "inventory_box": {
+      "DUMMY-ENTRY-COMMENT-1": "Below is PLACEHOLDER text",
+      "tab_panel_inventory": "物品"
+    },
+    "location_top_box": {
+      "tab_button_current": "目前",
+      "tab_button_local": "本地",
+      "tab_button_world": "世界",
+      "tab_button_modern": "現代",
+      "tab_button_cultivation": "修練",
+      "DUMMY-ENTRY-COMMENT-1": "The 4 below are PLACEHOLDER TEXT, will be removed!",
+      "tab_panel_current": "目前位置",
+      "tab_panel_local": "本地地圖",
+      "tab_panel_modern": "現代世界地圖",
+      "tab_panel_cultivation": "修仙世界地圖"
+    },
+    "central_box": {
+      "tab_button_craft": "製作",
+      "tab_button_combat": "戰鬥",
+      "tab_button_gather": "採集",
+      "tab_button_location": "區域",
+      "tab_button_train": "鍛鍊",
+      "tab_button_cultivate": "修練",
+      "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
+      "tab_panel_craft": "製作",
+      "tab_panel_combat": "戰鬥",
+      "tab_panel_gather": "採集",
+      "tab_panel_location": "在區域之間移動",
+      "tab_panel_train": "鍛鍊",
+      "tab_panel_cultivate": "吸收靈氣",
+      "tab_panel_char_creation": "從這裡開始創建角色"
+    },
+    "cultivation_box": {
+      "tab_button_qi_cultivation": "修法",
+      "tab_button_body_cultivation": "煉體",
+      "tab_button_soul_cultivation": "修魂",
+      "tab_button_bloodline": "血脈",
+      "tab_button_stellar_cultivation": "星辰",
+      "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
+      "tab_panel_qi_cultivation": "修法",
+      "tab_panel_body_cultivation": "煉體",
+      "tab_panel_soul_cultivation": "修魂",
+      "tab_panel_bloodline": "血脈進化",
+      "tab_panel_stellar_cultivation": "星辰修練"
+    },
+    "skills_box": {
+      "tab_button_skills": "技能",
+      "tab_button_techniques": "功法",
+      "tab_button_arts": "法術",
+      "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
+      "tab_panel_skills": "技能",
+      "tab_panel_techniques": "功法（被動／有些可能會需要主動啟用）",
+      "tab_panel_arts": "法術（主動，之後可能會有自動化的選項）"
+    },
+    "log_box": {
+      "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
+      "tab_panel_log": "日誌"
+    },
+    "misc_box": {
+      "tab_button_paths": "路途",
+      "tab_button_misc_stats": "雜項",
+      "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
+      "tab_panel_paths": "路途",
+      "tab_panel_misc_stats": "雜項統計"
+    },
+    "status_bar": {
+      "settings_tooltip": "設定",
+      "save_tooltip": "存檔",
+      "export_tooltip": "匯出",
+      "import_tooltip": "匯入",
+      "changelog_tooltip": "更新日誌（不會被翻譯，請自行用Google翻譯）",
+      "hitscounter_tooltip": "遊玩次數（今日 UTC+8 / 總共）"
+    }
+  },
+  "log": {
+    "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDER example of item gain text",
+    "item_gained": "獲得了 {item} x{count}."
+  }
 }

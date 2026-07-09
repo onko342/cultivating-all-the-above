@@ -1,7 +1,5 @@
-﻿class InventoryOwner {
+﻿export class InventoryOwner {
     constructor() {
         this.inventory = {};
     }
 }
-
-export { InventoryOwner };

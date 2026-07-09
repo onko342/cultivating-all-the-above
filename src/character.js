@@ -6,7 +6,7 @@ class Player extends InventoryOwner {
     }
 }
 
-const character = new Player();
+export const character = new Player();
 character.name = "Player";
 character.race = "human";
 character.gender = "male";
@@ -133,5 +133,3 @@ character.tab_unlocks = {
 character.unlockBox = function (key) {
     character.box_unlocks[key] = true;
 }
-
-export { character };
