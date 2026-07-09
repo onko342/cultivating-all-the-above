@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,FILL@20..48,0..1&icon_names=download,save,settings,upload" rel="stylesheet">
 
     <script type="module" src="src/main.js"></script>
 
@@ -20,12 +21,16 @@
                             <!--Note to self: Large chinese numbers will definitely break the stats page-->
                             <!--Have to implement auto text shrinking to account for this-->
                         </div>
+                        <div class="tab-panel" data-tab-panel="equipment">
+                            EQUIPMENT
+                        </div>
                         <div class="tab-panel" data-tab-panel="stats-detailed">
                             DETAILED STATS (include everything on core page + extra details)
                         </div>
                     </div>
                     <div class="tab-buttons bottom-buttons">
                         <button class="tab-button active-tab" data-tab-target="stats-core">STAT</button>
+                        <button class="tab-button" data-tab-target="equipment">EQMT</button>
                         <button class="tab-button" data-tab-target="stats-detailed">DTLD</button>
                     </div>
                 </div>
@@ -197,5 +202,17 @@
             </div>
         </section>
     </main>
+    <footer id="status-bar" class="status-bar">
+        <div class="status-bar-left">
+            <button class="status-item" id="settings-button"><i class="material-symbols-outlined">settings</i></button>
+            <button class="status-item" id="save-button"><i class="material-symbols-outlined">save</i></button>
+            <button class="status-item" id="export-button"><i class="material-symbols-outlined">download</i></button>
+            <button class="status-item" id="import-button"><i class="material-symbols-outlined">upload</i></button>
+            <div class="status-item" id="changelog-button"><a href="changelog.html" target="_blank">&nbsp;v0.0.2.2&nbsp;</a></div>
+        </div>
+        <div class="status-bar-right">
+            <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fonko342.github.io%2Fcultivating-all-the-above%2F&label=&icon=play-fill&color=%238540f5&message=&style=flat&tz=Asia%2FTaipei">
+        </div>
+    </footer>
 </body>
 </html>

@@ -99,7 +99,7 @@ character.stats.multiplier_bonuses = {
 
 };
 
-character.UI_unlocks = {
+character.box_unlocks = {
     character_creation_complete: false,
     stats_box: false,
     inventory_box: false,
@@ -111,8 +111,12 @@ character.UI_unlocks = {
     //add other UI unlocks here
 }
 
+character.tab_unlocks = {
+
+}
+
 character.unlockBox = function (key) {
-    character.UI_unlocks[key] = true;
+    character.box_unlocks[key] = true;
 }
 
 export { character };

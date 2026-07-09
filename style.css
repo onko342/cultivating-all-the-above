@@ -62,6 +62,7 @@
     align-items: flex-start;
     padding: 5px;
     overflow-x: auto;
+    padding-bottom: 44px;
 }
 
 .game-box {
@@ -137,6 +138,45 @@
     background: #3f60a3;
 }
 
+.status-bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 36px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background: #171e84;
+    border-top: 2px solid #aee7fb;
+    padding: 0 4px;
+    overflow-x: auto;
+    z-index: 100;
+}
+
+.status-bar-left,
+.status-bar-right {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    align-items: center;
+}
+
+.status-item {
+    white-space: nowrap;
+}
+
+.status-bar i {
+    display: block;
+}
+
+.status-bar a {
+    color: inherit;
+    text-decoration: none;
+}
+
 #stats-box {
     width: 375px;
     height: 400px;
@@ -184,3 +224,31 @@
     height: 250px;
     top: 5px;
 }
+
+#settings-button,
+#save-button,
+#export-button,
+#import-button,
+#changelog-button {
+    background: #171e84;
+    border: none;
+    border-right: 1px solid white;
+    font-family: ZenKakuGothicAntique;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    color: white;
+    font-variation-settings: 'opsz' 20;
+}
+
+    #settings-button {
+        font-variation-settings: 'FILL' 1;
+    }
+
+    #settings-button:hover,
+    #save-button:hover,
+    #export-button:hover,
+    #import-button:hover,
+    #changelog-button:hover {
+        background: #6f74be;
+    }

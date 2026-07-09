@@ -2,7 +2,7 @@
 import { updateBoxUnlocks, initTabs } from "./display.js";
 
 //all boxes shown for testing purposes
-Object.keys(character.UI_unlocks).forEach(box => {
+Object.keys(character.box_unlocks).forEach(box => {
     character.unlockBox(box);
 })
 
