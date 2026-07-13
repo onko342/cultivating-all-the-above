@@ -1,4 +1,6 @@
-﻿import { InventoryOwner } from "./content/inventory.js";
+﻿"use strict";
+
+import { InventoryOwner } from "./content/inventory.js";
 
 class Player extends InventoryOwner {
     constructor() {

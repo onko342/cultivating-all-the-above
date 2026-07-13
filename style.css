@@ -1,4 +1,10 @@
-﻿body {
+﻿:root {
+    --box-gradient: linear-gradient(to top right, #252c8b, #4933ba, #9148d7);
+    --bar-color: #171e84;
+    --box-border-color: #aee7fb;
+}
+
+body {
     background-color: #252525;
     font-family: ZenKakuGothicAntique;
     font-weight: 400;
@@ -22,7 +28,7 @@
     .dashboard-flex-container::-webkit-scrollbar-track,
     .resizable-box::-webkit-scrollbar-track,
     .tab-content-area::-webkit-scrollbar-track {
-        background: #171e84;
+        background: var(--bar-color);
     }
 
     .dashboard-flex-container::-webkit-scrollbar-thumb,
@@ -51,7 +57,7 @@
     .resizable-box,
     .tab-content-area {
         scrollbar-width: thin;
-        scrollbar-color: #4933ba #171e84;
+        scrollbar-color: #4933ba var(--bar-color);
     }
 }
 
@@ -66,8 +72,8 @@
 }
 
 .game-box {
-    background: linear-gradient(to top right, #252c8b, #4933ba, #9148d7);
-    border: 5px outset #aee7fb;
+    background: var(--box-gradient);
+    border: 5px outset var(--box-border-color);
     opacity: 0;
     transition: opacity 0.5s ease
 }
@@ -93,7 +99,7 @@
     display: flex;
     flex-shrink: 0;
     gap: 2px;
-    background: #171e84;
+    background: var(--bar-color);
 }
 
 .tab-buttons.top-buttons {
@@ -149,8 +155,8 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
-    background: #171e84;
-    border-top: 2px solid #aee7fb;
+    background: var(--bar-color);
+    border-top: 2px solid var(--box-border-color);
     padding: 0 4px;
     overflow-x: auto;
     z-index: 100;
@@ -230,7 +236,7 @@
 #export-button,
 #import-button,
 #changelog-button {
-    background: #171e84;
+    background: var(--bar-color);
     border: none;
     border-right: 1px solid white;
     font-family: ZenKakuGothicAntique;
@@ -252,3 +258,23 @@
     #changelog-button:hover {
         background: #6f74be;
     }
+
+#name-level-line {
+    display: flex;
+    padding-top: 5px;
+}
+
+#character-name-input {
+    background: var(--bar-color);
+    border: outset 1px var(--box-border-color);
+    font-family: ZenKakuGothicAntique;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    font-size: 14px;
+    width: 120px;
+}
+
+#character-xp-bar {
+
+}

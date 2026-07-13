@@ -1,4 +1,6 @@
-﻿import {settings} from "./content/settings.js";
+﻿"use strict";
+
+import { settings } from "./content/settings.js";
 
 const LOCALES_BASE_URL = new URL("../locales/", import.meta.url);
 const FALLBACK_LANGUAGE = "en-us";
