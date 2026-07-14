@@ -3,9 +3,11 @@
     "stats_box": {
       "tab_button_stats": "屬性",
       "tab_button_equipment": "裝備",
+      "tab_button_titles": "稱號",
       "tab_button_stats_detailed": "詳細",
       "DUMMY-ENTRY-COMMENT-1": "The 3 below are PLACEHOLDERS, will be removed!",
       "tab_panel_equipment": "裝備",
+      "tab_panel_titles": "稱號",
       "tab_panel_stats_detailed": "詳細屬性（包含核心頁面所有內容及更多細節）"
     },
     "inventory_box": {
@@ -68,9 +70,11 @@
     },
     "misc_box": {
       "tab_button_paths": "路途",
+      "tab_button_bestiary": "怪物",
       "tab_button_misc_stats": "雜項",
       "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
       "tab_panel_paths": "路途",
+      "tab_panel_bestiary": "怪物手冊",
       "tab_panel_misc_stats": "雜項統計"
     },
     "status_bar": {

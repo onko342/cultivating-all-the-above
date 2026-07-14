@@ -3,9 +3,11 @@
     "stats_box": {
       "tab_button_stats": "STAT",
       "tab_button_equipment": "EQMT",
+      "tab_button_titles": "TTLS",
       "tab_button_stats_detailed": "DTLD",
       "DUMMY-ENTRY-COMMENT-1": "The 3 below are PLACEHOLDERS, will be removed!",
       "tab_panel_equipment": "EQUIPMENT",
+      "tab_panel_titles": "TITLES",
       "tab_panel_stats_detailed": "DETAILED STATS (include everything on core page + extra details)"
     },
     "inventory_box": {
@@ -68,9 +70,11 @@
     },
     "misc_box": {
       "tab_button_paths": "PATH",
+      "tab_button_bestiary": "BSTR",
       "tab_button_misc_stats": "MISC",
       "DUMMY-ENTRY-COMMENT-1": "The entries below are PLACEHOLDERS for actual content",
       "tab_panel_paths": "PATHS",
+      "tab_panel_bestiary": "BESTIARY",
       "tab_panel_misc_stats": "MISC STATS"
     },
     "status_bar": {
