@@ -89,5 +89,17 @@
   "log": {
     "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDER example of item gain text",
     "item_gained": "獲得了 {item} x{count}."
+  },
+  "titles": {
+    "name": {
+      "default_name": "基本稱號名稱",
+      "placeholder": "沒有人能拿到的[佔位符]稱號",
+      "system_awakened": "初代系統覺醒者"
+    },
+    "description": {
+      "default_description": "基本稱號說明",
+      "placeholder_1": "這是一個佔位符稱號。會提供極大的製作者增益",
+      "system_awakened": "你的世界已獲取接觸宇宙中的魔法的資格。你將是親手體驗這個事件的幸運兒。還是會不會一點都不幸運？祝你好運，你需要的。"
+    }
   }
 }

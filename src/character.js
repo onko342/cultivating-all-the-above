@@ -13,7 +13,8 @@ character.name = "Player";
 character.race = "human";
 character.gender = "male";
 character.height = 170;
-character.titles = {};
+character.titles = [];
+character.selected_title = "";
 character.base_stats = {
     //resource stats (many things contribute)
     max_health: 100,
@@ -85,7 +86,12 @@ character.base_stats = {
     dodge_score: 0,
     def_penetration: 0,
     def_penetration_proportion: 0,
-};
+
+    //progression modifiers
+    level_xp: 1,
+    all_skill_xp: 1,
+    cultivation_qi: 1,
+}
 character.stats = {};
 character.stats.full = { ...character.base_stats };
 
@@ -102,19 +108,45 @@ character.misc_stats = {
     items_from_crafts: 0, //from crafting, some recipes may craft multiple items at a time
     items_from_traders: 0, //bought
     items_from_rewards: 0, //storyline rewards, etc.
-};
+}
 
 character.stats.flat_bonuses = {
-
-};
+    level: {},
+    titles: {},
+    skills: {},
+}
 
 character.stats.percent_bonuses = {
-
-};
+    level: {},
+    titles: {},
+    skills: {},
+}
 
 character.stats.multiplier_bonuses = {
+    level: {},
+    titles: {},
+    skills: {},
+}
 
-};
+character.stats.exponent_bonuses = {
+    //too broken for anything to be added here right now
+}
+
+character.stats.final_flat_bonuses = {
+
+}
+
+character.stats.final_percent_bonuses = {
+
+}
+
+character.stats.final_multiplier_bonuses = {
+
+}
+
+character.stats.final_exponent_bonuses = {
+
+}
 
 character.box_unlocks = {
     character_creation_complete: false,

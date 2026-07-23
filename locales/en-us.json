@@ -89,5 +89,17 @@
   "log": {
     "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDER example of item gain text",
     "item_gained": "You gained {item} x{count}."
+  },
+  "titles": {
+    "name": {
+      "default_name": "Default title name",
+      "placeholder": "The [PLACEHOLDER] title no one ever gets",
+      "system_awakened": "First-Generation System Awakened"
+    },
+    "description": {
+      "default_description": "Default title description. English description parts should include all spaces they need like this: ",
+      "placeholder_1": "This is a placeholder title. Gives a large dev boost",
+      "system_awakened": "Your world has been selected to be introduced to the magic of the greater universe. You, are one of the lucky ones fortunate enough to be living on it at the time of such an event. Or should I say unfortunate? Good luck. You'll need it."
+    }
   }
 }
