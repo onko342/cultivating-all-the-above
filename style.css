@@ -1,5 +1,5 @@
 ﻿:root {
-    --box-gradient: linear-gradient(to top right, #252c8b, #4933ba, #9148d7);
+    --box-gradient: linear-gradient(to top right, #1a2185, #341caf, #7e2dcc); /*original: linear-gradient(to top right, #252c8b, #4933ba, #9148d7)*/
     --bar-color: #171e84;
     --box-border-color: #aee7fb;
 }

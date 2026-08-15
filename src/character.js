@@ -13,7 +13,7 @@ character.name = "Player";
 character.race = "human";
 character.gender = "male";
 character.height = 170;
-character.titles = [];
+character.titles = ["system_awakened"];
 character.selected_title = "";
 character.base_stats = {
     //resource stats (many things contribute)
