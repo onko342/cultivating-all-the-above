@@ -8,7 +8,8 @@
       "DUMMY-ENTRY-COMMENT-1": "The 3 below are PLACEHOLDERS, will be removed!",
       "tab_panel_equipment": "裝備",
       "tab_panel_titles": "稱號",
-      "tab_panel_stats_detailed": "詳細屬性（包含核心頁面所有內容及更多細節）"
+      "tab_panel_stats_detailed": "詳細屬性（包含核心頁面所有內容及更多細節）",
+      "level_text": "等級 {level}"
     },
     "inventory_box": {
       "DUMMY-ENTRY-COMMENT-1": "Below is PLACEHOLDER text",

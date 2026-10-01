@@ -2,6 +2,8 @@
     --box-gradient: linear-gradient(to top right, #1a2185, #341caf, #7e2dcc); /*original: linear-gradient(to top right, #252c8b, #4933ba, #9148d7)*/
     --bar-color: #171e84;
     --box-border-color: #aee7fb;
+    --outline-white: -0.01px -0.01px 0 white, 0.01px -0.01px 0 white, -0.01px 0.01px 0 white, 0.01px 0.01px 0 white;
+    
 }
 
 body {
@@ -14,7 +16,7 @@ body {
 }
 @font-face {
     font-family: ZenKakuGothicAntique;
-    src: url(fonts/ZenKakuGothicAntique-Regular.ttf)
+    src: url(fonts/ZenKakuGothicAntique-Regular.ttf);
 }
 
 @supports selector(::-webkit-scrollbar) {
@@ -183,6 +185,68 @@ body {
     text-decoration: none;
 }
 
+.rank-h {
+    color: gray;
+    font-weight: bold;
+}
+
+.rank-g {
+    color: darkgray;
+    font-weight: bold;
+}
+
+.rank-f {
+    color: white;
+}
+
+.rank-e {
+    color: #3eff44;
+    font-weight: bold;
+}
+
+.rank-d {
+    color: deepskyblue;
+    font-weight: bold;
+}
+
+.rank-c {
+    color: #ca89ff;
+    font-weight: bold;
+}
+
+.rank-b {
+    color: #ffa63e;
+    font-weight: bold;
+}
+
+.rank-a {
+    color: #ff5f56;
+    font-weight: bold;
+}
+
+.rank-s {
+    color: #feff47;
+    font-weight: bolder;
+}
+
+.rank-ss {
+    -webkit-text-fill-color: transparent;
+    background: repeating-linear-gradient(99.9deg, #a3e3ff, #db70fa 20px, #a3e3ff 40px);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 1000;
+    text-shadow: 0 0 8px #a3e3ff;
+}
+
+.rank-sss {
+    -webkit-text-fill-color: transparent;
+    background: repeating-linear-gradient(99.9deg, #ff68c1, #f32f41 15px, #ff6e23 30px, #ff68c1 45px);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 1000;
+    text-shadow: 0 0 6px #ff5f56, 0 0 12px #ff5f56, 0 0 18px #ff5f56;
+}
+
 #stats-box {
     width: 375px;
     height: 400px;
@@ -261,7 +325,11 @@ body {
 
 #name-level-line {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     padding-top: 5px;
+    padding-right: 5px;
 }
 
 #character-name-input {

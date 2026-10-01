@@ -26,8 +26,41 @@ function resolveKey(locale_obj, key) {
     }, locale_obj);
 }
 
-//looks up a translation key, falling back to the fallback language, then to the key itself
-export function t(key, vars = {}) {
+//Marks a string as trusted HTML so tHTML() inserts it as-is instead of escaping it.
+//Only wrap markup you built yourself, and run any plain text inside it through escapeHTML.
+class RawHTML {
+    constructor(html) {
+        this.html = String(html);
+    }
+}
+
+export function rawHTML(html) {
+    return new RawHTML(html);
+}
+
+export function escapeHTML(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
+//used when a RawHTML var ends up in a plain-text lookup (t()), e.g. a tooltip: tags are dropped, entities decoded
+function htmlToPlainText(html) {
+    return new DOMParser().parseFromString(html, "text/html").body.textContent;
+}
+
+function formatVar(value, escape_vars) {
+    if (value instanceof RawHTML) {
+        return escape_vars ? value.html : htmlToPlainText(value.html);
+    }
+    return escape_vars ? escapeHTML(value) : String(value);
+}
+
+//shared lookup. escape_vars should be true whenever the result will be inserted as HTML
+function translate(key, vars, escape_vars) {
     let text = resolveKey(active_locale, key);
 
     if (text === undefined) {
@@ -41,14 +74,29 @@ export function t(key, vars = {}) {
 
     //simple {var_name} substitution
     return text.replace(/\{(\w+)\}/g, (match, var_name) => {
-        return vars[var_name] !== undefined ? vars[var_name] : match;
+        if (vars[var_name] === undefined) return match;
+        return formatVar(vars[var_name], escape_vars);
     });
+}
+
+//plain text lookup, for textContent / attributes
+export function t(key, vars = {}) {
+    return translate(key, vars, false);
+}
+
+//HTML lookup, for innerHTML. The translation text may contain tags, but {vars} are escaped
+export function tHTML(key, vars = {}) {
+    return translate(key, vars, true);
 }
 
 //applies data-i18n / data-i18n-attr translations to everything under root
 export function applyTranslationsToDOM(root = document) {
     root.querySelectorAll("[data-i18n]").forEach((el) => {
         el.textContent = t(el.dataset.i18n);
+    });
+
+    root.querySelectorAll("[data-i18n-html]").forEach((el) => {
+        el.innerHTML = tHTML(el.dataset.i18nHtml);
     });
 
     root.querySelectorAll("[data-i18n-attr]").forEach((el) => {

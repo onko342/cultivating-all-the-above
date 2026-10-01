@@ -1,14 +1,14 @@
 ﻿"use strict";
 
 import { character } from "./character.js";
-import { updateBoxUnlocks, initTabs, formatNumber } from "./display.js";
-import { initLocalization, applyTranslationsToDOM } from "./localization.js";
+import { updateBoxUnlocks, initTabs, formatNumber, bindDisplay, updateAllDisplays, styledSpan } from "./display.js";
+import { initLocalization, applyTranslationsToDOM, t, tHTML } from "./localization.js";
 import { leveling } from "./content/leveling.js";
 import { settings } from "./content/settings.js";
 
 const name_input = document.getElementById("character-name-input");
 name_input.value = character.name;
-name_input.addEventListener("change", () => character.name = name_field.value.toString().trim().length>0?name_field.value:"Player");
+name_input.addEventListener("change", () => character.name = name_input.value.toString().trim().length > 0 ? name_input.value : "Player");
 
 async function init() {
     try {
@@ -27,6 +27,11 @@ async function init() {
     updateBoxUnlocks();
     initTabs();
 
+    bindDisplay("level", "level-text",
+        () => t("ui.stats_box.level_text", { level: formatNumber(leveling.character_level) }),
+        { style_group: "rank", getStyle: () => leveling.getRank(leveling.character_level) }
+    );
+
     //testing formatNumber
     settings.setSetting("number_type", "standard");
     console.log(formatNumber(123456));
@@ -41,6 +46,14 @@ async function init() {
     console.log(formatNumber(123456789));
     console.log(formatNumber(234597826347562987345629845, 99, 0))
     console.log(formatNumber(10000000000000));
+
+    //XP test
+    leveling.addXP(500000000000);
+
+    //temporary rank name testing
+    document.getElementById("character-title").innerHTML = tHTML("log.rank_line", {
+        rank: styledSpan("rank", leveling.getRank(leveling.character_level), leveling.getRank(leveling.character_level).toUpperCase() + "-Rank"),
+    });
 }
 
 init();

@@ -1,7 +1,75 @@
 ﻿"use strict";
 
+import { t, rawHTML, escapeHTML } from "./localization.js";
 import { character } from "./character.js";
 import { settings } from "./content/settings.js";
+
+const display_bindings = {};
+
+/**
+ * Gives an element exactly one class from a style group, e.g. group "rank" + value "f" -> class "rank-f".
+ * Any other "rank-*" class on the element is removed. A null/undefined value just clears the group.
+ * Does nothing if the element already has the right class.
+ */
+export function setStyleClass(element, group, value) {
+    const prefix = `${group}-`;
+    const wanted = (value === null || value === undefined) ? null : prefix + value;
+
+    [...element.classList].forEach((class_name) => {
+        if (class_name.startsWith(prefix) && class_name !== wanted) {
+            element.classList.remove(class_name);
+        }
+    });
+    if (wanted) element.classList.add(wanted);
+}
+
+/**
+ * Builds a styled span for use as a {var} inside tHTML() translations.
+ * styledSpan("rank", "d", "D-Rank") -> <span class="rank-d">D-Rank</span>
+ * Uses the same group-prefix class naming as setStyleClass.
+ */
+export function styledSpan(group, value, text) {
+    return rawHTML(`<span class="${escapeHTML(group)}-${escapeHTML(value)}">${escapeHTML(text)}</span>`);
+}
+
+/**
+ * @param {string} key Unique key, e.g. "level"
+ * @param {string} element_id ID of the element to manage
+ * @param {() => string} getText Returns the text/HTML to show, called on every update
+ * @param {Object} [options]
+ * @param {boolean} [options.html = false] If true, getText's result is inserted as HTML (use tHTML for it)
+ * @param {string} [options.style_group] Class group prefix, e.g. "rank" or "rarity"
+ * @param {() => (string|null)} [options.getStyle] Returns the group's current value, e.g. "f"
+ */
+export function bindDisplay(key, element_id, getText, { html = false, style_group = null, getStyle = null } = {}) {
+    display_bindings[key] = {
+        element: document.getElementById(element_id),
+        getText: getText,
+        html: html,
+        style_group: style_group,
+        getStyle: getStyle,
+    };
+    updateDisplay(key);
+}
+
+export function updateDisplay(key) {
+    const binding = display_bindings[key];
+    if (!binding || !binding.element) return;
+
+    if (binding.html) {
+        binding.element.innerHTML = binding.getText();
+    } else {
+        binding.element.textContent = binding.getText();
+    }
+
+    if (binding.style_group && binding.getStyle) {
+        setStyleClass(binding.element, binding.style_group, binding.getStyle());
+    }
+}
+
+export function updateAllDisplays() {
+    Object.keys(display_bindings).forEach(updateDisplay);
+}
 
 const box_elements = {
     stats_box: document.getElementById('stats-box'),
@@ -117,7 +185,7 @@ export function formatNumber(number, max_regular = 6, regular_decimals = 2) {
     } else if (settings.number_type == "scientific") {
         return exponential();
     } else {
-        throw new Error("Number type setting unrecognized!");
+        console.warn("Number type setting unrecognized!");
         return exponential();
     }
 }

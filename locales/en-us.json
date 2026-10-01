@@ -8,7 +8,8 @@
       "DUMMY-ENTRY-COMMENT-1": "The 3 below are PLACEHOLDERS, will be removed!",
       "tab_panel_equipment": "EQUIPMENT",
       "tab_panel_titles": "TITLES",
-      "tab_panel_stats_detailed": "DETAILED STATS (include everything on core page + extra details)"
+      "tab_panel_stats_detailed": "DETAILED STATS (include everything on core page + extra details)",
+      "level_text": "Lv. {level}"
     },
     "inventory_box": {
       "DUMMY-ENTRY-COMMENT-1": "Below is PLACEHOLDER text",
@@ -43,7 +44,7 @@
       "tab_panel_char_creation": "START CHARACTER CREATION HERE"
     },
     "cultivation_box": {
-      "tab_button_qi_cultivation": "QI",
+      "tab_button_qi_cultivation": "&nbsp;QI&nbsp;",
       "tab_button_body_cultivation": "BODY",
       "tab_button_soul_cultivation": "SOUL",
       "tab_button_bloodline": "BDLN",
@@ -87,8 +88,9 @@
     }
   },
   "log": {
-    "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDER example of item gain text",
-    "item_gained": "You gained {item} x{count}."
+    "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDERS",
+    "item_gained": "You gained {item} x{count}.",
+    "rank_line":  "Your current rank is {rank}."
   },
   "titles": {
     "name": {

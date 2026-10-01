@@ -1,6 +1,7 @@
 ﻿"use strict";
 
 import { InventoryOwner } from "./content/inventory.js";
+import { titles } from "./content/titles.js";
 
 class Player extends InventoryOwner {
     constructor() {
@@ -38,7 +39,7 @@ character.base_stats = {
     mana_regen_flat_idle: 0,
     mana_regen_proportion_idle: 0.01, //default 100 seconds to recover to full out of combat
 
-    inner_qi_unlocked: false, //since cultivation is locked by default, qi, and therefore inner qi, is locked as well
+    //since cultivation is locked by default, qi, and therefore inner qi, is locked as well. lock variables moved to global flags
     max_inner_qi: 0,
     inner_qi: 0,
     inner_qi_regen_flat: 0,
@@ -46,7 +47,7 @@ character.base_stats = {
     inner_qi_regen_flat_idle: 0,
     inner_qi_regen_proportion_idle: 0, //qi by default doesn't recover on its own, you need to be in the cultivation world for it
 
-    spirit_unlocked: false, //most cultivators can't even detect the soul, unlocked when detecting the soul through own means or receiving soul attack
+    //spirit is unlocked when detecting the soul or receiving a soul attack
     max_spirit: 1,
     spirit: 1,
     spirit_regen_flat: 0,
@@ -64,8 +65,7 @@ character.base_stats = {
     capacity: 0,
     flow: 0,
 
-    //mind stats
-    mind_unlocked: false, //these stats are not visible to those who don't know about the soul
+    //mind stats, only unlocked when the soul is learned
     ego: 1,
     resilience: 1,
     charm: 1,
@@ -93,7 +93,7 @@ character.base_stats = {
     cultivation_qi: 1,
 }
 character.stats = {};
-character.stats.full = { ...character.base_stats };
+character.stats.total = { ...character.base_stats };
 
 character.misc_stats = {
     //total kill count isn't listed here since it's to be summed from enemies
@@ -149,7 +149,6 @@ character.stats.final_exponent_bonuses = {
 }
 
 character.box_unlocks = {
-    character_creation_complete: false,
     stats_box: false,
     inventory_box: false,
     skills_box: false,
@@ -164,6 +163,17 @@ character.tab_unlocks = {
 
 }
 
+character.global_flags = {
+    character_creation_complete: false,
+    inner_qi_unlocked: false,
+    spirit_unlocked: false,
+    mind_stats_unlocked: false,
+}
+
 character.unlockBox = function (key) {
     character.box_unlocks[key] = true;
+}
+
+character.setFlag = function (key, state) {
+    character.global_flags[key] = state;
 }
