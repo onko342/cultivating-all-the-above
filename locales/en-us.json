@@ -91,7 +91,7 @@
   "log": {
     "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDERS",
     "item_gained": "You gained {item} x{count}.",
-    "rank_line":  "Your current rank is {rank}."
+    "rank_line": "Your current rank is {rank}."
   },
   "titles": {
     "name": {
@@ -119,6 +119,16 @@
       "mythic_test": "Indeed, they are titles that are only used for testing out the colors. Not used in any gameplay feature at all. [test]",
       "transcendental_test": "You are wrong, Mr. System. They may be modified later to give the System Architect the means necessary to thoroughly test out the practicality of other parts of the system. [test]",
       "divine_test": "Oh shut up, system. You know that that sort of artificial boost will only provide a skewed perspective of how the entire setup works. It wouldn't produce satisfactory results. It will only lead to cries of lack of balance. Why am I having this conversation with myself again? [test]"
+    }
+  },
+  "qi_cultivation": {
+    "realms": {
+      "latent_roots": "Latent Roots"
+    }
+  },
+  "body_cultivation": {
+    "realms": {
+      "mortal_body": "Mortal Body"
     }
   }
 }

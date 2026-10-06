@@ -51,6 +51,11 @@ async function init() {
     //Add placeholder title (remove later)
     character.titles.push("placeholder");
     character.titles.push("common_test", "uncommon_test", "rare_test", "epic_test", "legendary_test", "mythic_test", "transcendental_test", "divine_test");
+
+    //Cultivation flag test (remove later)
+    character.setFlag("inner_qi_unlocked", true);
+    character.setFlag("body_cultivation_unlocked", true);
+    updateAllDisplays();
 }
 
 init();

@@ -166,6 +166,7 @@ character.tab_unlocks = {
 character.global_flags = {
     character_creation_complete: false,
     inner_qi_unlocked: false,
+    body_cultivation_unlocked: false,
     spirit_unlocked: false,
     mind_stats_unlocked: false,
 }

@@ -40,14 +40,16 @@ export function styledSpan(group, value, text) {
  * @param {boolean} [options.html = false] If true, getText's result is inserted as HTML (use tHTML for it)
  * @param {string} [options.style_group] Class group prefix, e.g. "rank" or "rarity"
  * @param {() => (string|null)} [options.getStyle] Returns the group's current value, e.g. "f"
+ * @param {() => boolean} [options.show_if] Returns whether the element is visible (toggles the hidden attribute)
  */
-export function bindDisplay(key, element_id, getText, { html = false, style_group = null, getStyle = null } = {}) {
+export function bindDisplay(key, element_id, getText, { html = false, style_group = null, getStyle = null, show_if = null } = {}) {
     display_bindings[key] = {
         element: document.getElementById(element_id),
         getText: getText,
         html: html,
         style_group: style_group,
         getStyle: getStyle,
+        show_if: show_if,
     };
     updateDisplay(key);
 }
@@ -55,6 +57,8 @@ export function bindDisplay(key, element_id, getText, { html = false, style_grou
 export function updateDisplay(key) {
     const binding = display_bindings[key];
     if (!binding || !binding.element) return;
+
+    if (binding.show_if) binding.element.hidden = !binding.show_if();
 
     if (binding.html) {
         binding.element.innerHTML = binding.getText();

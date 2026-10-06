@@ -192,6 +192,12 @@ body {
     text-decoration: none;
 }
 
+.realm-line {
+    text-align: center;
+    padding-right: 5px;
+    font-size: 15px;
+}
+
 .rank-h {
     color: gray;
     font-weight: bold;
@@ -262,7 +268,7 @@ body {
 }
 
 .title-select-button {
-    background-color: transparent; /* not the "background" shorthand, so it can never wipe a gradient */
+    background-color: transparent; /* not the "background" shorthand, so it never wipes a gradient */
     border: none;
     padding: 2px 10px;
     color: white; /* default for "No title"; rarity classes on the inner span override it */

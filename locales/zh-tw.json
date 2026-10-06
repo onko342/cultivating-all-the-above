@@ -119,5 +119,15 @@
       "transcendental_test": "系統君，你錯了。它們未來可能會被更改成給系統主測試其他系統環節的助力。[測試]",
       "divine_test": "系統，閉嘴！你應該了解那種增幅只會產生曲扭的印象。絕對不會有良好的效果。只會有毫無平衡性的改變。為甚麼我在與自己講話？[測試]"
     }
+  },
+  "qi_cultivation": {
+    "realms": {
+      "latent_roots": "潛在靈根"
+    }
+  },
+  "body_cultivation": {
+    "realms": {
+      "mortal_body": "凡人之軀"
+    }
   }
 }

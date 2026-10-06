@@ -84,5 +84,16 @@ export function initStatsPage() {
         }
     );
 
+    //PLACEHOLDERS: realm tracking doesn't exist yet. Replace with the character's actual realms once cultivation content is implemented
+    bindDisplay("realm_qi", "realm-qi-line",
+        () => t("qi_cultivation.realms.latent_roots"),
+        { show_if: () => character.global_flags.inner_qi_unlocked }
+    );
+
+    bindDisplay("realm_body", "realm-body-line",
+        () => t("body_cultivation.realms.mortal_body"),
+        { show_if: () => character.global_flags.body_cultivation_unlocked }
+    );
+
     initTitleDropdown();
 }
