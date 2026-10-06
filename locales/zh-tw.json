@@ -9,7 +9,8 @@
       "tab_panel_equipment": "裝備",
       "tab_panel_titles": "稱號",
       "tab_panel_stats_detailed": "詳細屬性（包含核心頁面所有內容及更多細節）",
-      "level_text": "等級 {level}"
+      "level_text": "等級 {level}",
+      "no_title": "無稱號"
     },
     "inventory_box": {
       "DUMMY-ENTRY-COMMENT-1": "Below is PLACEHOLDER text",
@@ -95,12 +96,28 @@
     "name": {
       "default_name": "基本稱號名稱",
       "placeholder": "沒有人能拿到的[佔位符]稱號",
-      "system_awakened": "初代系統覺醒者"
+      "system_awakened": "初代系統覺醒者",
+      "common_test": "尋常的一般稱號",
+      "uncommon_test": "尋常的不凡稱號",
+      "rare_test": "稀有稱號，這真的是尋常的嗎？",
+      "epic_test": "不怎麼尋常的史詩稱號",
+      "legendary_test": "絕對不尋常的傳奇稱號",
+      "mythic_test": "如果你告訴我這是尋常的神話稱號，只有眾神會知道有甚麼會對你發生",
+      "transcendental_test": "別威脅我，稱號名稱！這是尋常的超越級稱號，而且我會超越你所能懲罰我的範圍！",
+      "divine_test": "神來了。這個尋常稱號爭鬥不能再繼續下去。我想荂蔫12%猜ㄩ霞傻是打電[稱號清除程序啟動。上一指令偵測錯誤。是否快速更正錯誤？]"
     },
     "description": {
       "default_description": "基本稱號說明",
       "placeholder_1": "這是一個佔位符稱號。會提供極大的製作者增益",
-      "system_awakened": "你的世界已獲取接觸宇宙中的魔法的資格。你將是親手體驗這個事件的幸運兒。還是會不會一點都不幸運？祝你好運，你需要的。"
+      "system_awakened": "你的世界已獲取接觸宇宙中的魔法的資格。你將是親手體驗這個事件的幸運兒。還是會不會一點都不幸運？祝你好運，你需要的。",
+      "common_test": "這是可獲得的一般稱號中最尋常的。[測試]",
+      "uncommon_test": "這是可獲得的不凡稱號中最尋常的。[測試]",
+      "rare_test": "這是可獲得的稀有稱號中最尋常的......不對？這怎麼可能尋常？[測試]",
+      "epic_test": "請你告訴我，如果這個稱號系列真的不尋常，為何他們有如此尋常完全沒有說明角色任何特徵的名稱？[測試]",
+      "legendary_test": "不管它叫什麼，它們絕對不是尋常玩家能獲得的。[測試]",
+      "mythic_test": "你說的對，這些稱號只是用來測試顏色的，完全沒有任何的實際遊戲內容與它們相關。[測試]",
+      "transcendental_test": "系統君，你錯了。它們未來可能會被更改成給系統主測試其他系統環節的助力。[測試]",
+      "divine_test": "系統，閉嘴！你應該了解那種增幅只會產生曲扭的印象。絕對不會有良好的效果。只會有毫無平衡性的改變。為甚麼我在與自己講話？[測試]"
     }
   }
 }

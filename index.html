@@ -22,7 +22,10 @@
                                 <input type="text" id="character-name-input">
                                 <div id="level-text">Lv. ???</div>
                             </div>
-                            <div id="character-title">'The [PLACEHOLDER] title no one ever gets'</div>
+                            <div id="title-select" class="title-select">
+                                <button type="button" id="title-select-button" class="title-select-button"><span id="character-title"></span></button>
+                                <ul id="title-select-list" class="title-select-list" hidden></ul>
+                            </div>
                             <!--Note to self: Large chinese numbers will definitely break the stats page-->
                             <!--Have to implement auto text shrinking to account for this-->
                         </div>
@@ -224,7 +227,7 @@
             <button class="status-item" id="save-button" data-i18n-attr="title:ui.status_bar.save_tooltip"><i class="material-symbols-outlined">save</i></button>
             <button class="status-item" id="export-button" data-i18n-attr="title:ui.status_bar.export_tooltip"><i class="material-symbols-outlined">download</i></button>
             <button class="status-item" id="import-button" data-i18n-attr="title:ui.status_bar.import_tooltip"><i class="material-symbols-outlined">upload</i></button>
-            <div class="status-item" id="changelog-button" data-i18n-attr="title:ui.status_bar.changelog_tooltip"><a href="changelog.html" target="_blank">&nbsp;v0.0.3.5&nbsp;</a></div>
+            <div class="status-item" id="changelog-button" data-i18n-attr="title:ui.status_bar.changelog_tooltip"><a href="changelog.html" target="_blank">&nbsp;v0.0.4.0&nbsp;</a></div>
         </div>
         <div class="status-bar-right">
             <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fonko342.github.io%2Fcultivating-all-the-above%2F&label=&icon=play-fill&color=%238540f5&message=&style=flat&tz=Asia%2FTaipei" data-i18n-attr="title:ui.status_bar.hitscounter_tooltip">

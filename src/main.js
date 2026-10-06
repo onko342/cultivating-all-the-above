@@ -3,6 +3,7 @@
 import { character } from "./character.js";
 import { updateBoxUnlocks, initTabs, formatNumber, bindDisplay, updateAllDisplays, styledSpan } from "./display.js";
 import { initLocalization, applyTranslationsToDOM, t, tHTML } from "./localization.js";
+import { initStatsPage } from "./stats_page.js";
 import { leveling } from "./content/leveling.js";
 import { settings } from "./content/settings.js";
 
@@ -27,10 +28,7 @@ async function init() {
     updateBoxUnlocks();
     initTabs();
 
-    bindDisplay("level", "level-text",
-        () => t("ui.stats_box.level_text", { level: formatNumber(leveling.character_level) }),
-        { style_group: "rank", getStyle: () => leveling.getRank(leveling.character_level) }
-    );
+    initStatsPage();
 
     //testing formatNumber
     settings.setSetting("number_type", "standard");
@@ -50,10 +48,9 @@ async function init() {
     //XP test
     leveling.addXP(500000000000);
 
-    //temporary rank name testing
-    document.getElementById("character-title").innerHTML = tHTML("log.rank_line", {
-        rank: styledSpan("rank", leveling.getRank(leveling.character_level), leveling.getRank(leveling.character_level).toUpperCase() + "-Rank"),
-    });
+    //Add placeholder title (remove later)
+    character.titles.push("placeholder");
+    character.titles.push("common_test", "uncommon_test", "rare_test", "epic_test", "legendary_test", "mythic_test", "transcendental_test", "divine_test");
 }
 
 init();

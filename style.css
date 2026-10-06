@@ -1,9 +1,10 @@
 ﻿:root {
     --box-gradient: linear-gradient(to top right, #1a2185, #341caf, #7e2dcc); /*original: linear-gradient(to top right, #252c8b, #4933ba, #9148d7)*/
     --bar-color: #171e84;
+    --bar-thumb: #8677cf;
+    --bar-hover: #a49ad4;
     --box-border-color: #aee7fb;
     --outline-white: -0.01px -0.01px 0 white, 0.01px -0.01px 0 white, -0.01px 0.01px 0 white, 0.01px 0.01px 0 white;
-    
 }
 
 body {
@@ -22,32 +23,37 @@ body {
 @supports selector(::-webkit-scrollbar) {
     .dashboard-flex-container::-webkit-scrollbar,
     .resizable-box::-webkit-scrollbar,
-    .tab-content-area::-webkit-scrollbar {
+    .tab-content-area::-webkit-scrollbar,
+    .title-select-list::-webkit-scrollbar {
         width: 10px;
         height: 10px;
     }
 
     .dashboard-flex-container::-webkit-scrollbar-track,
     .resizable-box::-webkit-scrollbar-track,
-    .tab-content-area::-webkit-scrollbar-track {
+    .tab-content-area::-webkit-scrollbar-track,
+    .title-select-list::-webkit-scrollbar-track {
         background: var(--bar-color);
     }
 
     .dashboard-flex-container::-webkit-scrollbar-thumb,
     .resizable-box::-webkit-scrollbar-thumb,
-    .tab-content-area::-webkit-scrollbar-thumb {
-        background: #8677cf;
+    .tab-content-area::-webkit-scrollbar-thumb,
+    .title-select-list::-webkit-scrollbar-thumb {
+        background: var(--bar-thumb);
     }
 
         .dashboard-flex-container::-webkit-scrollbar-thumb:hover,
         .resizable-box::-webkit-scrollbar-thumb:hover,
-        .tab-content-area::-webkit-scrollbar-thumb:hover {
-            background: #a49ad4;
+        .tab-content-area::-webkit-scrollbar-thumb:hover,
+        .title-select-list::-webkit-scrollbar-thumb:hover {
+            background: var(--bar-hover);
         }
 
     .dashboard-flex-container::-webkit-scrollbar-button,
     .resizable-box::-webkit-scrollbar-button,
-    .tab-content-area::-webkit-scrollbar-button {
+    .tab-content-area::-webkit-scrollbar-button,
+    .title-select-list::-webkit-scrollbar-button {
         display: none;
         width: 0;
         height: 0;
@@ -57,7 +63,8 @@ body {
 @supports not selector(::-webkit-scrollbar) {
     .dashboard-flex-container,
     .resizable-box,
-    .tab-content-area {
+    .tab-content-area,
+    .title-select-list {
         scrollbar-width: thin;
         scrollbar-color: #4933ba var(--bar-color);
     }
@@ -235,7 +242,7 @@ body {
     background-clip: text;
     -webkit-background-clip: text;
     font-weight: 1000;
-    text-shadow: 0 0 8px #a3e3ff;
+    filter: drop-shadow(0 0 4px #a3e3ff);
 }
 
 .rank-sss {
@@ -244,7 +251,112 @@ body {
     background-clip: text;
     -webkit-background-clip: text;
     font-weight: 1000;
-    text-shadow: 0 0 6px #ff5f56, 0 0 12px #ff5f56, 0 0 18px #ff5f56;
+    filter: drop-shadow(0 0 3px #ff5f56) drop-shadow(0 0 6px #ff5f56);
+}
+
+.title-select {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 2px 5px 0 0;
+}
+
+.title-select-button {
+    background-color: transparent; /* not the "background" shorthand, so it can never wipe a gradient */
+    border: none;
+    padding: 2px 10px;
+    color: white; /* default for "No title"; rarity classes on the inner span override it */
+    font-family: ZenKakuGothicAntique;
+    font-size: 15px;
+    cursor: pointer;
+    min-width: 0; /* lets the button shrink inside the flex row so the title truncates instead of widening it */
+    max-width: 100%;
+}
+
+#character-title {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.title-select-list {
+    position: absolute;
+    top: 100%;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    min-width: 200px;
+    max-width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    background: var(--bar-color);
+    border: outset 1px var(--box-border-color);
+    text-align: center;
+    user-select: none;
+}
+
+    .title-select-list[hidden] {
+        display: none;
+    }
+
+    .title-select-list li {
+        padding: 3px 8px;
+        cursor: pointer;
+        color: white;
+    }
+
+        .title-select-list li:hover {
+            background: #6f74be;
+        }
+
+/* Rarity styling (placeholder colors, same group-prefix scheme as rank-*)
+   Glows use filter: drop-shadow instead of text-shadow, because text-shadow bleeds through transparent gradient text */
+.rarity-common {
+    color: white;
+}
+
+.rarity-uncommon {
+    color: #3eff44;
+}
+
+.rarity-rare {
+    color: deepskyblue;
+    font-weight: bold;
+}
+
+.rarity-epic {
+    color: #ca89ff;
+    font-weight: bold;
+}
+
+.rarity-legendary {
+    color: #ffa63e;
+    font-weight: bold;
+}
+
+.rarity-mythic {
+    color: #ff5f56;
+    font-weight: bold;
+    filter: drop-shadow(0 0 3px #ff5f56);
+}
+
+.rarity-transcendental {
+    -webkit-text-fill-color: transparent;
+    background: repeating-linear-gradient(99.9deg, #a3e3ff, #db70fa 20px, #a3e3ff 40px);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 1000;
+}
+
+.rarity-divine {
+    -webkit-text-fill-color: transparent;
+    background: repeating-linear-gradient(99.9deg, #fff6a8, #ffd34d 15px, #ffb347 30px, #fff6a8 45px);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 1000;
+    filter: drop-shadow(0 0 3px #ffd34d) drop-shadow(0 0 6px #ffd34d);
 }
 
 #stats-box {
