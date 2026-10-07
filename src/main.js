@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 import { character } from "./character.js";
-import { updateBoxUnlocks, initTabs, formatNumber, bindDisplay, updateAllDisplays, styledSpan } from "./display.js";
+import { updateBoxUnlocks, initTabs, formatNumber, bindDisplay, updateAllDisplays, styledSpan, applyCompactSettings } from "./display.js";
 import { initLocalization, applyTranslationsToDOM, t, tHTML } from "./localization.js";
 import { initStatsPage } from "./stats_page.js";
 import { leveling } from "./content/leveling.js";
@@ -44,9 +44,10 @@ async function init() {
     console.log(formatNumber(123456789));
     console.log(formatNumber(234597826347562987345629845, 99, 0))
     console.log(formatNumber(10000000000000));
+    settings.setSetting("number_type", "standard");
 
     //XP test
-    leveling.addXP(500000000000);
+    leveling.addXP(5000000000);
 
     //Add placeholder title (remove later)
     character.titles.push("placeholder");
@@ -55,6 +56,16 @@ async function init() {
     //Cultivation flag test (remove later)
     character.setFlag("inner_qi_unlocked", true);
     character.setFlag("body_cultivation_unlocked", true);
+    character.setFlag("spirit_unlocked", true);
+    character.stats.total.max_health = 123456789012;
+    character.stats.total.health = 123456789012;
+    character.stats.total.max_mana = 1234567;
+    character.stats.total.mana = 1234567;
+    character.stats.total.max_inner_qi = 80;
+    character.stats.total.inner_qi = 80;
+    settings.setSetting("compact_realms", true);
+    settings.setSetting("compact_bars", true);
+    applyCompactSettings();
     updateAllDisplays();
 }
 

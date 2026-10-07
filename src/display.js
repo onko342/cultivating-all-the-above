@@ -54,11 +54,54 @@ export function bindDisplay(key, element_id, getText, { html = false, style_grou
     updateDisplay(key);
 }
 
+/**
+ * Binds a progress bar. The element gets a fill and a text label built for it, and
+ * is refreshed by updateDisplay(key) like any other binding.
+ * @param {string} key Unique key, e.g. "bar_hp"
+ * @param {string} element_id ID of the bar element (give it the "stat-bar" class)
+ * @param {Object} options
+ * @param {() => number} options.getCurrent Current value
+ * @param {() => number} options.getMax Maximum value (a max of 0 or less shows an empty bar)
+ * @param {() => string} options.getText Text shown over the bar
+ * @param {() => boolean} [options.show_if] Returns whether the bar is visible (toggles the hidden attribute)
+ */
+export function bindBar(key, element_id, { getCurrent, getMax, getText, show_if = null }) {
+    const element = document.getElementById(element_id);
+    let fill = null;
+    let label = null;
+    if (element) {
+        fill = document.createElement("div");
+        fill.className = "stat-bar-fill";
+        label = document.createElement("div");
+        label.className = "stat-bar-label";
+        element.replaceChildren(fill, label);
+    }
+    display_bindings[key] = {
+        type: "bar",
+        element: element,
+        fill: fill,
+        label: label,
+        getCurrent: getCurrent,
+        getMax: getMax,
+        getText: getText,
+        show_if: show_if,
+    };
+    updateDisplay(key);
+}
+
 export function updateDisplay(key) {
     const binding = display_bindings[key];
     if (!binding || !binding.element) return;
 
     if (binding.show_if) binding.element.hidden = !binding.show_if();
+
+    if (binding.type === "bar") {
+        const max = binding.getMax();
+        const fraction = max > 0 ? Math.min(Math.max(binding.getCurrent() / max, 0), 1) : 0; //NaN also ends up as 0
+        binding.fill.style.setProperty("--fill", fraction);
+        binding.label.textContent = binding.getText();
+        return;
+    }
 
     if (binding.html) {
         binding.element.innerHTML = binding.getText();
@@ -69,6 +112,18 @@ export function updateDisplay(key) {
     if (binding.style_group && binding.getStyle) {
         setStyleClass(binding.element, binding.style_group, binding.getStyle());
     }
+}
+
+/**
+ * Applies the compact-layout settings. Any element with data-compact-setting="<settings key>"
+ * gets the "is-compact" class while that setting is true.
+ * Call this after changing one of those settings (and once at startup).
+ */
+export function applyCompactSettings() {
+    document.querySelectorAll("[data-compact-setting]").forEach((element) => {
+        element.classList.toggle("is-compact", Boolean(settings[element.dataset.compactSetting]));
+    });
+    updateAllDisplays(); //bar text depends on the layout
 }
 
 export function updateAllDisplays() {

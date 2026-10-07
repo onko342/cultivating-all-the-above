@@ -10,7 +10,14 @@
       "tab_panel_titles": "TITLES",
       "tab_panel_stats_detailed": "DETAILED STATS (include everything on core page + extra details)",
       "level_text": "Lv. {level}",
-      "no_title": "No title"
+      "no_title": "No title",
+      "bar_text": "{name} {current}/{max}",
+      "bar_name_xp": "XP",
+      "bar_name_hp": "HP",
+      "bar_name_st": "ST",
+      "bar_name_mp": "MP",
+      "bar_name_qi": "QI",
+      "bar_name_sp": "SP"
     },
     "inventory_box": {
       "DUMMY-ENTRY-COMMENT-1": "Below is PLACEHOLDER text",

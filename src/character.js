@@ -164,6 +164,7 @@ character.tab_unlocks = {
 }
 
 character.global_flags = {
+    //note: flags don't update displays by themselves, updateDisplay or updateAllDisplays has to be called whenever the flag is set
     character_creation_complete: false,
     inner_qi_unlocked: false,
     body_cultivation_unlocked: false,

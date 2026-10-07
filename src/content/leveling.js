@@ -60,6 +60,7 @@ leveling.addXP = function (XP) {
         leveled_up = true;
     }
     if (leveled_up) updateDisplay("level");
+    updateDisplay("bar_xp");
     // call character data refreshing function here
 }
 

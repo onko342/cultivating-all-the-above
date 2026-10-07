@@ -10,7 +10,14 @@
       "tab_panel_titles": "稱號",
       "tab_panel_stats_detailed": "詳細屬性（包含核心頁面所有內容及更多細節）",
       "level_text": "等級 {level}",
-      "no_title": "無稱號"
+      "no_title": "無稱號",
+      "bar_text": "{name} {current}/{max}",
+      "bar_name_xp": "經驗",
+      "bar_name_hp": "生命",
+      "bar_name_st": "體力",
+      "bar_name_mp": "魔力",
+      "bar_name_qi": "內氣",
+      "bar_name_sp": "魂力"
     },
     "inventory_box": {
       "DUMMY-ENTRY-COMMENT-1": "Below is PLACEHOLDER text",
