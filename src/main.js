@@ -66,6 +66,7 @@ async function init() {
     settings.setSetting("compact_realms", true);
     settings.setSetting("compact_bars", true);
     applyCompactSettings();
+    //character.getRanking = () => 1;
     updateAllDisplays();
 }
 

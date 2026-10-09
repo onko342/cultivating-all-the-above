@@ -4,9 +4,10 @@ import { character } from "./character.js";
 import { titles } from "./content/titles.js";
 import { leveling } from "./content/leveling.js";
 import { getRarityName } from "./content/rarities.js";
-import { bindDisplay, bindBar, updateDisplay, setStyleClass, formatNumber, applyCompactSettings } from "./display.js";
-import { t } from "./localization.js";
+import { bindDisplay, bindBar, updateDisplay, setStyleClass, formatNumber, applyCompactSettings, styledSpan } from "./display.js";
+import { t, tHTML } from "./localization.js";
 import { settings } from "./content/settings.js";
+import { getLeagueTier } from "./content/ranking.js";
 
 function getSelectedTitle() {
     return titles[character.selected_title] ?? null; //null if nothing is selected or id no longer exists
@@ -65,6 +66,8 @@ function initTitleDropdown() {
     });
 }
 
+//Regular notation digits for the ranking number (must be enough for it to never spill into large number notation)
+const ranking_max_digits = 30;
 //Digits shown in regular notation before bars switch to the player's large number format.
 //Half-width bars (two sharing a row in the compact layout) get half as many.
 const bar_max_digits_full = 12;
@@ -155,6 +158,19 @@ export function initStatsPage() {
     );
 
     initBars();
+
+    bindDisplay("ranking", "ranking-line",
+        () => {
+            const rank = character.getRanking();
+            const tier = getLeagueTier(character.current_world, rank);
+            return tHTML("ui.stats_box.ranking_text", {
+                world: t(`locations.worlds.${character.current_world}`),
+                rank: styledSpan("league", tier, `#${formatNumber(rank, ranking_max_digits, 0)}`),
+            });
+        },
+        { html: true }
+    );
+
     applyCompactSettings();
     initTitleDropdown();
 }

@@ -16,6 +16,8 @@ character.gender = "male";
 character.height = 170;
 character.titles = ["system_awakened"];
 character.selected_title = "";
+//World variable here only temporarily, all associated logic must reference locations.js when that is built.
+character.current_world = "modern";
 character.base_stats = {
     //resource stats (many things contribute)
     max_health: 100,
@@ -178,4 +180,10 @@ character.unlockBox = function (key) {
 
 character.setFlag = function (key, state) {
     character.global_flags[key] = state;
+}
+
+//PLACEHOLDER: returns the character's ranking position in a world (1 = strongest).
+//Will eventually use combat power and the world's population. For now it's a fixed starting rank.
+character.getRanking = function (world = character.current_world) {
+    return 2.4e12;
 }

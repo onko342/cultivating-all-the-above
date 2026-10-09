@@ -17,7 +17,8 @@
       "bar_name_st": "體力",
       "bar_name_mp": "魔力",
       "bar_name_qi": "內氣",
-      "bar_name_sp": "魂力"
+      "bar_name_sp": "魂力",
+      "ranking_text": "{world}排名：{rank}"
     },
     "inventory_box": {
       "DUMMY-ENTRY-COMMENT-1": "Below is PLACEHOLDER text",
@@ -135,6 +136,12 @@
   "body_cultivation": {
     "realms": {
       "mortal_body": "凡人之軀"
+    }
+  },
+  "locations": {
+    "worlds": {
+      "modern": "源星",
+      "cultivation": "歸仙世界"
     }
   }
 }

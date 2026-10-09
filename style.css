@@ -460,6 +460,138 @@ body {
     filter: drop-shadow(0 0 3px #ffd34d) drop-shadow(0 0 6px #ffd34d);
 }
 
+.ranking-line {
+    text-align: center;
+    padding: 2px 5px 0 0;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* League tiers (placeholder colors) */
+.league-iron {
+    color: #a3a8ad;
+}
+
+.league-bronze {
+    color: #d98a4a;
+    font-weight: bold;
+}
+
+.league-silver {
+    color: #dfe6ee;
+    font-weight: bold;
+}
+
+.league-gold {
+    color: #ffd34d;
+    font-weight: bold;
+}
+
+.league-platinum {
+    color: #4fe3d0;
+    font-weight: bold;
+}
+
+.league-emerald {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(99.9deg, #20d557, #3eff6b, #20d557);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: bold;
+}
+
+.league-diamond {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(99.9deg, #60b0f1, #9ed3ff, #60b0f1, #9ed3ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: bold;
+    filter: drop-shadow(0 0 1px #9ed3ff);
+}
+
+.league-master {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(99.9deg, #cc53ef, #e690ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: bolder;
+    filter: drop-shadow(0 0 2px #cc53ef);
+}
+
+.league-grandmaster {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(99.9deg, #ff6a5f, #ff8a82);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: bolder;
+    filter: drop-shadow(0 0 3px #ff6a5f);
+}
+
+.league-challenger {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(99.9deg, #fc8cff, #ffd45e, #fc8cff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 1000;
+    filter: drop-shadow(0 0 4px #fc8cff);
+}
+
+.league-champion {
+    -webkit-text-fill-color: transparent;
+    background: repeating-linear-gradient(99.9deg, #fae476, #34e0f7 15px, #fae476 30px);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 1000;
+    filter: drop-shadow(0 0 4px #fae476) drop-shadow(0 0 20px #fae476);
+}
+
+.league-legend {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(99.9deg, #f37e98, #ffe27a, #8ff7ff, #ff9bd0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 1000;
+    filter: drop-shadow(0 0 3px #ff9bd0) drop-shadow(0 0 10px #8ff7ff);
+}
+
+.league-eternal {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(99.9deg, #ff5f56, #ffb347, #fff27a, #5dff8a, #5ee7ff, #c78bff, #ff5f56);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 1000;
+    filter: drop-shadow(0 0 3px #c78bff) drop-shadow(0 0 8px #fff27a);
+}
+
+.league-unrivaled {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(135deg, #f48e3d, #fe835b, #e7c431, #f48e3d);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 1000;
+    filter: drop-shadow(0 0 1px #f48e3d) drop-shadow(0 0 5px #f7d64b);
+}
+
+.league-prime {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(99.9deg, #aeb7c2, #87feff, #c8cdd2, #eadef1);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 1000;
+    filter: drop-shadow(0 0 1px #87feff) drop-shadow(0 0 5px #c8cdd2);
+}
+
+.league-ultimate {
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(99.9deg, #e5b62d, #fff6b0, #fcce85, #e5d346);
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: 1000;
+    filter: drop-shadow(0 0 1px #f1a8f4) drop-shadow(0 0 6px #fff6b0);
+}
+
 #stats-box {
     width: 375px;
     height: 400px;

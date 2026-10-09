@@ -17,7 +17,8 @@
       "bar_name_st": "ST",
       "bar_name_mp": "MP",
       "bar_name_qi": "QI",
-      "bar_name_sp": "SP"
+      "bar_name_sp": "SP",
+      "ranking_text": "{world} Ranking: {rank}"
     },
     "inventory_box": {
       "DUMMY-ENTRY-COMMENT-1": "Below is PLACEHOLDER text",
@@ -136,6 +137,12 @@
   "body_cultivation": {
     "realms": {
       "mortal_body": "Mortal Body"
+    }
+  },
+  "locations": {
+    "worlds": {
+      "modern": "Proto",
+      "cultivation": "Guixian World"
     }
   }
 }
