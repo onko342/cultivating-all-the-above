@@ -8,7 +8,7 @@ class Title {
     constructor({
         title_id = "default_id", // nothing should use this id
         name_key = "default_name",
-        description = () => { return t("titles.description.default_description") }, // Made a function to allow more in depth manipulation of description. May allow for differences in sentence structure between languages to be implemented with minimal effort.
+        description = () => { return t("titles.description.default_description") }, // Made a function to allow more in depth manipulation of description. Could have entirely different descriptions based on certain gameplay criteria
         rarity = 0, // 0 = common, 1 = uncommon, 2 = rare, 3 = epic, 4 = legendary, 5 = mythic, 6 = transcendental, 7 = divine
         effects, // planned to include global flags, stat increases, xp multipliers, and boosts for progression systems
         secret = false,
@@ -37,7 +37,7 @@ class Title {
                     all_skill_xp: 10,
                 }
             },
-            flags: ["developer"]
+            flags: ["developer"] //unlocks developer-only actions/locations for debugging?
         },
         secret: true,
     });

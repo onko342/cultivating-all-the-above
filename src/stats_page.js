@@ -4,7 +4,7 @@ import { character } from "./character.js";
 import { titles } from "./content/titles.js";
 import { leveling } from "./content/leveling.js";
 import { getRarityName } from "./content/rarities.js";
-import { bindDisplay, bindBar, updateDisplay, setStyleClass, formatNumber, applyCompactSettings, styledSpan } from "./display.js";
+import { bindDisplay, bindVisibility, bindBar, updateDisplay, setStyleClass, formatNumber, applyCompactSettings, styledSpan } from "./display.js";
 import { t, tHTML } from "./localization.js";
 import { settings } from "./content/settings.js";
 import { getLeagueTier } from "./content/ranking.js";
@@ -126,6 +126,52 @@ function initBars() {
     });
 }
 
+//Core stats on the stats page, one group per row, three stats per group, in display order.
+//key: row id. color: row background class (the two derived rows share "derived"). show_if null = always visible.
+const stat_group_definitions = [
+    { key: "body", color: "body", stats: ["strength", "constitution", "agility"] },
+    { key: "essence", color: "essence", stats: ["affinity", "capacity", "flow"] },
+    { key: "mind", color: "mind", stats: ["ego", "resilience", "charm"], show_if: () => character.global_flags.mind_stats_unlocked },
+    { key: "special", color: "special", stats: ["luck", "talent", "comprehension"] },
+    { key: "offense", color: "derived", stats: ["attack_power", "attack_speed", "cast_speed"] },
+    { key: "defense", color: "derived", stats: ["defense", "hit_score", "dodge_score"] },
+];
+
+function initStatGroups() {
+    const area = document.getElementById("stat-group-area");
+
+    stat_group_definitions.forEach(({ key, color, stats, show_if }) => {
+        const row = document.createElement("div");
+        row.id = `stat-group-${key}`;
+        row.className = `stat-group stat-group-${color}`;
+
+        //every stat gets a slot (the grid item, holds the padding and divider) around the cell (the text that gets fitted)
+        stats.forEach((stat_key) => {
+            const slot = document.createElement("div");
+            slot.className = "stat-slot";
+            const cell = document.createElement("div");
+            cell.id = `stat-${stat_key.replaceAll("_", "-")}`;
+            cell.className = "stat-cell";
+            cell.dataset.stat = stat_key; //for the tooltips later
+            slot.appendChild(cell);
+            row.appendChild(slot);
+        });
+        area.appendChild(row); //must be in the document before binding
+
+        if (show_if) bindVisibility(`stat_group_${key}`, row.id, show_if);
+
+        stats.forEach((stat_key) => {
+            bindDisplay(`stat_${stat_key}`, `stat-${stat_key.replaceAll("_", "-")}`,
+                () => tHTML("ui.stats_box.stat_text", {
+                    name: styledSpan("stat", "name", t(`ui.stats_box.stat_name_${stat_key}`)),
+                    value: styledSpan("stat", "value", formatNumber(character.stats.total[stat_key])),
+                }),
+                { html: true, fit_text: true }
+            );
+        });
+    });
+}
+
 export function initStatsPage() {
     bindDisplay("level", "level-text",
         () => t("ui.stats_box.level_text", { level: formatNumber(leveling.character_level, 9) }),
@@ -149,12 +195,12 @@ export function initStatsPage() {
     //PLACEHOLDERS: realm tracking doesn't exist yet. Replace with the character's actual realms once cultivation content is implemented
     bindDisplay("realm_qi", "realm-qi-line",
         () => t("qi_cultivation.realms.latent_roots"),
-        { show_if: () => character.global_flags.inner_qi_unlocked }
+        { show_if: () => character.global_flags.inner_qi_unlocked, fit_text: true }
     );
 
     bindDisplay("realm_body", "realm-body-line",
         () => t("body_cultivation.realms.mortal_body"),
-        { show_if: () => character.global_flags.body_cultivation_unlocked }
+        { show_if: () => character.global_flags.body_cultivation_unlocked, fit_text: true }
     );
 
     initBars();
@@ -168,9 +214,10 @@ export function initStatsPage() {
                 rank: styledSpan("league", tier, `#${formatNumber(rank, ranking_max_digits, 0)}`),
             });
         },
-        { html: true }
+        { html: true, fit_text: true }
     );
 
+    initStatGroups();
     applyCompactSettings();
     initTitleDropdown();
 }

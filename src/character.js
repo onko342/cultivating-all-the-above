@@ -20,14 +20,14 @@ character.selected_title = "";
 character.current_world = "modern";
 character.base_stats = {
     //resource stats (many things contribute)
-    max_health: 100,
+    max_health: 100, //change to 0 when basic health conversion from stats is added (mostly constitution, a little strength)
     health: 100,
     health_regen_flat: 0, //_flat: base regen always active
     health_regen_proportion: 0, //_proportion: multiple of max always regenerated
     health_regen_flat_idle: 0, //_flat_idle: additional flat regen when not in combat
     health_regen_proportion_idle: 0.02, //_proportion_idle: additional regen proportion not in combat, default 50 seconds to recover to full
 
-    max_stamina: 100,
+    max_stamina: 100, //change to 0 when basic stamina conversion from stats is added (mostly agility, less of constitution)
     stamina: 100,
     stamina_regen_flat: 0,
     stamina_regen_proportion: 0,
@@ -50,7 +50,7 @@ character.base_stats = {
     inner_qi_regen_proportion_idle: 0, //qi by default doesn't recover on its own, you need to be in the cultivation world for it
 
     //spirit is unlocked when detecting the soul or receiving a soul attack
-    max_spirit: 1,
+    max_spirit: 1, //change to 0 when soul stat conversion (resilience) added
     spirit: 1,
     spirit_regen_flat: 0,
     spirit_regen_proportion: 0,
@@ -78,20 +78,42 @@ character.base_stats = {
     comprehension: 1, //raw intellect, how easy it is for you to learn things (not skill xp multiplier, this contributes but is not the only factor and may be directly used in checks)
 
     //derived stats
-    attack_power: 0,
-    attack_speed: 1,
+    physical_attack: 0,
+    physical_effectiveness: { //based on weapon and other factors, multiplies physical attack to get damage of each type
+        slash: 0,
+        pierce: 0,
+        blunt: 0,
+    },
+    mystical_attack: 0,
+    mystical_effectiveness: { //based on mystical mastery, multiplies mystical attacks/quantifiable effects to get total damage/other effects of each type
+        metal: 0,
+        wood: 0,
+        water: 0,
+        fire: 0,
+        earth: 0,
+        dark: 0,
+        light: 0,
+        wind: 0,
+        lightning: 0,
+        ice: 0,
+    },
+    soul_attack: 0,
+    attack_power: 0, //aggregate of all damage of current normal attack, must be calculated AFTER the above attack stats
+    attack_speed: 1, //physical attack rate
+    cast_speed: 1, //magic/cultivation technique use time reduction
     defense: 0,
     defense_proportion: 0,
-    crit_rate: 0.03,
-    crit_mult: 1.3,
     hit_score: 0,
     dodge_score: 0,
+    crit: 1, //score compared against enemy crit_prot to find crit chance
+    crit_prot: 1, //score compared against enemy crit to reduce their crit chance
+    crit_mult: 1.3, //possible change to system like the two variables above?
     def_penetration: 0,
     def_penetration_proportion: 0,
 
     //progression modifiers
     level_xp: 1,
-    all_skill_xp: 1,
+    all_skill_xp: 1, //comprehension * system-specific boosts such as levels
     cultivation_qi: 1,
 }
 character.stats = {};
@@ -113,6 +135,11 @@ character.misc_stats = {
 }
 
 character.stats.flat_bonuses = {
+    //change all bonuses to use format of stat first then source category?
+    //example:
+    //strength: { level: 123 }
+    //for nested stats:
+    //physical_attack.slash: { equipment: 69420 }
     level: {},
     titles: {},
     skills: {},
@@ -167,11 +194,24 @@ character.tab_unlocks = {
 
 character.global_flags = {
     //note: flags don't update displays by themselves, updateDisplay or updateAllDisplays has to be called whenever the flag is set
+    //flags are for important gameplay triggers and story progression, not for skill/title/progression perks!
+    //directly included in saves
     character_creation_complete: false,
     inner_qi_unlocked: false,
     body_cultivation_unlocked: false,
     spirit_unlocked: false,
     mind_stats_unlocked: false,
+    //don't give the developer flag during real gameplay, also leave this flag and other similar ones at the bottom below this comment
+    developer: false,
+}
+
+character.perks = {
+    //possible sources: skills, titles, cultivation, ...
+    //list perks as all false here to prevent perks from being undefined or lost in the code
+    //key difference between flags and perks:
+    //  - perks have descriptions and flags do not
+    //  - perks often directly modify aspects of mechanics
+    //  - [IMPORTANT] perks are to be directly compiled from other saved gameplay data on load, not directly saved
 }
 
 character.unlockBox = function (key) {

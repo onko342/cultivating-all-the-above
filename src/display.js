@@ -6,6 +6,27 @@ import { settings } from "./content/settings.js";
 
 const display_bindings = {};
 
+//Refits text whenever its element is first shown (hidden tabs and rows have no size to measure) or resized
+const fit_observer = new ResizeObserver((entries) => {
+    entries.forEach((entry) => fitText(entry.target));
+});
+
+/**
+ * Shrinks an element's text until it fits on one line. The element's font-size must be multiplied by
+ * var(--fit-scale, 1) in CSS, and the element must have overflow hidden + white-space nowrap.
+ * Below min_scale the CSS ellipsis takes over.
+ */
+export function fitText(element, min_scale = 0.55) {
+    element.style.setProperty("--fit-scale", 1);
+    if (element.clientWidth === 0) return; //not rendered right now, the resize observer refits when it appears
+
+    let scale = 1;
+    for (let i = 0; i < 4 && element.scrollWidth > element.clientWidth && scale > min_scale; i++) {
+        scale = Math.max(min_scale, scale * (element.clientWidth / element.scrollWidth) * 0.99);
+        element.style.setProperty("--fit-scale", scale);
+    }
+}
+
 /**
  * Gives an element exactly one class from a style group, e.g. group "rank" + value "f" -> class "rank-f".
  * Any other "rank-*" class on the element is removed. A null/undefined value just clears the group.
@@ -41,14 +62,33 @@ export function styledSpan(group, value, text) {
  * @param {string} [options.style_group] Class group prefix, e.g. "rank" or "rarity"
  * @param {() => (string|null)} [options.getStyle] Returns the group's current value, e.g. "f"
  * @param {() => boolean} [options.show_if] Returns whether the element is visible (toggles the hidden attribute)
+ * @param {boolean} [options.fit_text = false] Shrinks the text to fit its element (see fitText for the CSS it needs)
  */
-export function bindDisplay(key, element_id, getText, { html = false, style_group = null, getStyle = null, show_if = null } = {}) {
+export function bindDisplay(key, element_id, getText, { html = false, style_group = null, getStyle = null, show_if = null, fit_text = false } = {}) {
+    const element = document.getElementById(element_id);
     display_bindings[key] = {
-        element: document.getElementById(element_id),
+        element: element,
         getText: getText,
         html: html,
         style_group: style_group,
         getStyle: getStyle,
+        show_if: show_if,
+        fit_text: fit_text,
+    };
+    if (fit_text && element) fit_observer.observe(element);
+    updateDisplay(key);
+}
+
+/**
+ * Binds only an element's visibility (for containers whose content is managed elsewhere).
+ * @param {string} key Unique key, e.g. "stat_group_mind"
+ * @param {string} element_id ID of the element to show/hide
+ * @param {() => boolean} show_if Returns whether the element is visible
+ */
+export function bindVisibility(key, element_id, show_if) {
+    display_bindings[key] = {
+        type: "visibility",
+        element: document.getElementById(element_id),
         show_if: show_if,
     };
     updateDisplay(key);
@@ -75,6 +115,7 @@ export function bindBar(key, element_id, { getCurrent, getMax, getText, show_if 
         label = document.createElement("div");
         label.className = "stat-bar-label";
         element.replaceChildren(fill, label);
+        fit_observer.observe(label);
     }
     display_bindings[key] = {
         type: "bar",
@@ -94,12 +135,14 @@ export function updateDisplay(key) {
     if (!binding || !binding.element) return;
 
     if (binding.show_if) binding.element.hidden = !binding.show_if();
+    if (binding.type === "visibility") return;
 
     if (binding.type === "bar") {
         const max = binding.getMax();
         const fraction = max > 0 ? Math.min(Math.max(binding.getCurrent() / max, 0), 1) : 0; //NaN also ends up as 0
         binding.fill.style.setProperty("--fill", fraction);
         binding.label.textContent = binding.getText();
+        fitText(binding.label);
         return;
     }
 
@@ -112,6 +155,8 @@ export function updateDisplay(key) {
     if (binding.style_group && binding.getStyle) {
         setStyleClass(binding.element, binding.style_group, binding.getStyle());
     }
+
+    if (binding.fit_text) fitText(binding.element);
 }
 
 /**

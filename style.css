@@ -5,6 +5,8 @@
     --bar-hover: #a49ad4;
     --box-border-color: #aee7fb;
     --outline-white: -0.01px -0.01px 0 white, 0.01px -0.01px 0 white, -0.01px 0.01px 0 white, 0.01px 0.01px 0 white;
+    --stat-line-height: 22px; /* height of every single-line row in the stats panel (title, realms, ranking) */
+    --stat-line-gap: 3px; /* space between consecutive lines in the stats panel */
 }
 
 body {
@@ -258,13 +260,16 @@ body {
     position: relative;
     display: flex;
     justify-content: center;
-    padding: 2px 5px 0 0;
+    margin-top: var(--stat-line-gap);
+    padding: 0 5px 0 0;
 }
 
 .title-select-button {
     background-color: transparent; /* not the "background" shorthand, so it never wipes a gradient */
     border: none;
-    padding: 2px 10px;
+    padding: 0 10px;
+    height: var(--stat-line-height);
+    line-height: var(--stat-line-height);
     color: white; /* default for "No title"; rarity classes on the inner span override it */
     font-family: ZenKakuGothicAntique;
     font-size: 15px;
@@ -319,7 +324,7 @@ body {
 /* Stat areas: groups of rows. With "is-compact" (see applyCompactSettings) each row's children sit side by side.
    A hidden child leaves the row, so a lone child keeps the full width. */
 .stat-area {
-    padding: 2px 5px 0 0;
+    padding: 0 5px 0 0;
 }
 
     .stat-area.is-compact .stat-row {
@@ -333,32 +338,38 @@ body {
         }
 
 .realm-line {
+    margin-top: var(--stat-line-gap);
+    height: var(--stat-line-height);
+    line-height: var(--stat-line-height);
     text-align: center;
-    font-size: 15px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: calc(15px * var(--fit-scale, 1));
 }
 
-/* Realms keep their natural width and stay centered, separated by a dot. Must stay after the generic rules above. */
+/* Compact realms: two equal halves (from the generic compact rules above) with a dot in the gap between them.
+   Equal halves keep each realm's width independent of its text, so each one can shrink to fit on its own. */
 .realm-area.is-compact .stat-row {
-    justify-content: center;
-    gap: 0.5em;
+    position: relative;
+    gap: 14px;
 }
 
-    .realm-area.is-compact .stat-row > * {
-        flex: 0 1 auto;
+    .realm-area.is-compact .stat-row:has(.realm-line:not([hidden]) ~ .realm-line:not([hidden]))::after {
+        content: "·";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        height: var(--stat-line-height);
+        line-height: var(--stat-line-height);
+        font-size: 15px;
     }
-
-.realm-area.is-compact .realm-line:not([hidden]) ~ .realm-line:not([hidden])::before {
-    content: "·";
-    margin-right: 0.5em;
-}
 
 .stat-bar {
     position: relative;
     height: 18px;
-    margin-bottom: 3px;
+    margin-top: var(--stat-line-gap);
     box-sizing: border-box;
     background: #0d1140;
     border: 1px solid var(--box-border-color);
@@ -377,10 +388,10 @@ body {
 .stat-bar-label {
     position: absolute;
     inset: 0;
-    padding: 0 4px;
+    margin: 0 4px; /* margin, not padding, so the width fitText measures is exactly the room the text has */
     line-height: 16px; /* bar height minus the 2px border */
     text-align: center;
-    font-size: 13px;
+    font-size: calc(13px * var(--fit-scale, 1));
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -461,12 +472,14 @@ body {
 }
 
 .ranking-line {
+    margin: var(--stat-line-gap) 5px 0 0; /* margin instead of padding, so fitText measures the real width */
+    height: var(--stat-line-height);
+    line-height: var(--stat-line-height);
     text-align: center;
-    padding: 2px 5px 0 0;
-    font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: calc(14px * var(--fit-scale, 1));
 }
 
 /* League tiers (placeholder colors) */
@@ -592,6 +605,72 @@ body {
     filter: drop-shadow(0 0 1px #f1a8f4) drop-shadow(0 0 6px #fff6b0);
 }
 
+.stat-group-area {
+    padding: var(--stat-line-gap) 5px 0 0;
+}
+
+/* One row of three stats. minmax(0, 1fr) keeps the thirds exactly equal however long a stat's text is */
+.stat-group {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+    /* Rows touch, and the overlap makes their two borders share one line. To bring the spacing back, change -1px to 2px */
+    .stat-group + .stat-group {
+        margin-top: -1px;
+    }
+
+.stat-slot {
+    min-width: 0;
+    padding: 0 3px;
+    overflow: hidden;
+}
+
+    .stat-slot + .stat-slot {
+        border-left: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+/* The text fitted by fitText(): fixed height so shrinking the font never resizes the cell (which would re-trigger the resize observer) */
+.stat-cell {
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* last resort once the text has shrunk to its minimum size */
+    font-size: calc(13px * var(--fit-scale, 1));
+}
+
+.stat-name {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.stat-value {
+    font-weight: bold;
+}
+
+/* Row background colors (placeholders). The two derived rows share one neutral color. */
+.stat-group-body {
+    background: rgba(224, 82, 70, 0.4);
+}
+
+.stat-group-essence {
+    background: rgba(60, 170, 235, 0.4);
+}
+
+.stat-group-mind {
+    background: rgba(235, 96, 190, 0.4);
+}
+
+.stat-group-special {
+    background: rgba(235, 190, 60, 0.4);
+}
+
+.stat-group-derived {
+    background: rgba(255, 255, 255, 0.14);
+}
+
 #stats-box {
     width: 375px;
     height: 400px;
@@ -674,6 +753,7 @@ body {
     align-items: center;
     gap: 5px;
     padding-top: 5px;
+    padding-bottom: var(--stat-line-gap);
     padding-right: 5px;
 }
 
@@ -686,8 +766,4 @@ body {
     color: white;
     font-size: 14px;
     width: 120px;
-}
-
-#character-xp-bar {
-
 }

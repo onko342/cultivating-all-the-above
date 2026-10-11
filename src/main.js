@@ -67,6 +67,7 @@ async function init() {
     settings.setSetting("compact_bars", true);
     applyCompactSettings();
     //character.getRanking = () => 1;
+    character.setFlag("mind_stats_unlocked", true);
     updateAllDisplays();
 }
 
