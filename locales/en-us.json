@@ -37,7 +37,14 @@
       "stat_name_cast_speed": "CSP",
       "stat_name_defense": "DEF",
       "stat_name_hit_score": "HIT",
-      "stat_name_dodge_score": "DDG"
+      "stat_name_dodge_score": "DDG",
+      "stat_name_physical_attack": "PATK",
+      "stat_name_mystical_attack": "MATK",
+      "stat_name_soul_attack": "SATK",
+      "stat_name_crit": "CRI",
+      "stat_name_crit_mult": "CRM",
+      "stat_name_defense_proportion": "DMR",
+      "stat_name_crit_prot": "CRP"
     },
     "inventory_box": {
       "DUMMY-ENTRY-COMMENT-1": "Below is PLACEHOLDER text",
@@ -115,6 +122,37 @@
       "hitscounter_tooltip": "Total playcount (today UTC+8 / all time)"
     }
   },
+  "stats": {
+    "long_name": {
+      "strength": "Strength",
+      "constitution": "Constitution",
+      "agility": "Agility",
+      "affinity": "Affinity",
+      "capacity": "Capacity",
+      "flow": "Flow",
+      "ego": "Ego",
+      "resilience": "Resilience",
+      "charm": "Charm",
+      "luck": "Luck",
+      "talent": "Talent",
+      "comprehension": "Comprehension",
+      "physical_attack": "Physical Attack",
+      "mystical_attack": "Mystical Attack",
+      "soul_attack": "Soul Attack",
+      "attack_power": "Attack Power",
+      "attack_speed": "Attack Speed",
+      "cast_speed": "Cast Speed",
+      "defense": "Defense",
+      "defense_proportion": "Damage Reduction",
+      "hit_score": "Hit Score",
+      "dodge_score": "Dodge Score",
+      "crit": "Critical Hit Score",
+      "crit_prot": "Critical Hit Protection",
+      "crit_mult": "Critical Hit Multiplier",
+      "def_penetration": "Defense Penetration",
+      "def_penetration_proportion": "Proportional Defense Penetration"
+    }
+  },
   "log": {
     "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDERS",
     "item_gained": "You gained {item} x{count}.",
@@ -162,6 +200,56 @@
     "worlds": {
       "modern": "Proto",
       "cultivation": "Guixian World"
+    }
+  },
+  "tooltips": {
+    "stats": {
+      "strength": "The raw power of your muscles. Determines how hard you hit for melee attacks, and improves your health to a lesser degree.",
+      "constitution": "How sturdy and durable your body is; how well you can withstand punishment. The main source of HP and stamina before bonuses and a core line of defense against status effects and critical hits.",
+      "agility": "Your ability to move quickly. Directly affects your hitting and dodging capability.",
+      "affinity": "Connection to the greater multiverse. Amplifies mystical effects across the board.",
+      "capacity": "Depth of your reserves of mystical energies.",
+      "flow": "How well your energy pathways conduct mystical energies. Improves cast speed and reduces cooldowns.",
+      "ego": "The degree to which you can impress your will upon the fabric of reality. Direct soul attacks and actions scale off of ego.",
+      "resilience": "Your resolve to withstand any challenge thrown at you. The base source of spirit.",
+      "charm": "The power of your mind to influence other minds. Also known as charisma, or manipulativeness, depending on who you ask.",
+      "luck": "How much fate bends around you. Directly multiplies drop rates and affects some other probabilistic events to varying degrees.",
+      "talent": "Your natural ability to gain power. Makes it easier to progress along most progression systems.",
+      "comprehension": "Your ability to learn, do, and gain insights. Determines how quickly you grasp skills, techniques, and arts.",
+      "physical_attack": "Base normal attack damage for physical attacks. Multiplied by each damage type for total physical damage.",
+      "mystical_attack": "Base attack damage of mystical attacks.",
+      "soul_attack": "Base attack damage of soul attacks.",
+      "attack_power": "Total damage dealt by a normal attack.",
+      "attack_speed": "How many normal attacks you can perform per second, other physical attack speeds scale off of this.",
+      "cast_speed": "How quickly you can cast abilities.",
+      "defense": "Reduces the damage you take from incoming attacks.",
+      "defense_proportion": "Reduces damage taken after defense by a proportion.",
+      "hit_score": "Your accuracy. Compared against the target's dodge score.",
+      "dodge_score": "Your evasiveness. Compared against the attacker's hit score.",
+      "crit": "Your observance and focus. Compared against the target's critical hit protection.",
+      "crit_prot": "Your cautiousness and protectiveness. Compared against the attacker's critical hit score.",
+      "crit_mult": "The multiplier your attacks are multiplied by upon triggering a critical hit.",
+      "def_penetration": "The amount of damage that bypasses defense to always reach your target.",
+      "def_penetration_proportion": "The proportion of damage that is guaranteed to hit your target. Incredibly difficult to increase."
+    },
+    "level": {
+      "title": "You are level {level}",
+      "rank_label": "Rank",
+      "next_rank_label": "Next rank",
+      "next_rank_value": "{rank} (Lv. {level})",
+      "description": {
+        "h": "Gain XP to get started.",
+        "g": "Level up to increase your stats.",
+        "f": "You're no longer a beginner anymore, but that just means the world seeks to punish your mistakes even more harshly.",
+        "e": "Getting this far proves that you have what it takes to keep going. Unfortunately, all you have is the knowledge that going forward is the only way.",
+        "d": "You may take a rest now, just remember that every moment wasted is one you will never get back.",
+        "c": "Local threats can no longer challenge you anymore. You have to seek out the greater threats yourself.",
+        "b": "Your footsteps have brought you somewhere most will never reach, but it's not them you have to worry about. It's what's ahead of you.",
+        "a": "As one of the strongest of your world, you have the responsibility not only to protect but to advance.",
+        "s": "You may be at the top of your world, but you know you haven't even witnessed anything close to true power.",
+        "ss": "Beyond the confines of your world, everything is above you. Only you may reach towards the stars.",
+        "sss": "Every boundary you cross feels unreachable; you reach past anyway. What is the top of a series is only the gateway to the next."
+      }
     }
   }
 }

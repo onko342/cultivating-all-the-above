@@ -6,6 +6,7 @@ import { initLocalization, applyTranslationsToDOM, t, tHTML } from "./localizati
 import { initStatsPage } from "./stats_page.js";
 import { leveling } from "./content/leveling.js";
 import { settings } from "./content/settings.js";
+import { initTooltips, setTooltip } from "./tooltip.js";
 
 const name_input = document.getElementById("character-name-input");
 name_input.value = character.name;
@@ -27,7 +28,7 @@ async function init() {
 
     updateBoxUnlocks();
     initTabs();
-
+    initTooltips();
     initStatsPage();
 
     //testing formatNumber

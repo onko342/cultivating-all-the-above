@@ -47,6 +47,12 @@ export function escapeHTML(value) {
         .replace(/'/g, "&#39;");
 }
 
+//Turns a RawHTML (e.g. from styledSpan) into an HTML string for use outside tHTML(), such as tooltip table cells.
+//Plain values are escaped.
+export function unwrapHTML(value) {
+    return value instanceof RawHTML ? value.html : escapeHTML(value);
+}
+
 //used when a RawHTML var ends up in a plain-text lookup (t()), e.g. a tooltip: tags are dropped, entities decoded
 function htmlToPlainText(html) {
     return new DOMParser().parseFromString(html, "text/html").body.textContent;

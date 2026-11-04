@@ -5,9 +5,10 @@ import { titles } from "./content/titles.js";
 import { leveling } from "./content/leveling.js";
 import { getRarityName } from "./content/rarities.js";
 import { bindDisplay, bindVisibility, bindBar, updateDisplay, setStyleClass, formatNumber, applyCompactSettings, styledSpan } from "./display.js";
-import { t, tHTML } from "./localization.js";
+import { t, tHTML, unwrapHTML } from "./localization.js";
 import { settings } from "./content/settings.js";
 import { getLeagueTier } from "./content/ranking.js";
+import { setTooltip } from "./tooltip.js";
 
 function getSelectedTitle() {
     return titles[character.selected_title] ?? null; //null if nothing is selected or id no longer exists
@@ -137,6 +138,34 @@ const stat_group_definitions = [
     { key: "defense", color: "derived", stats: ["defense", "hit_score", "dodge_score"] },
 ];
 
+//Tooltips for the derived stats. related = other stats shown in a table under the description.
+//Description text lives in locales under tooltips.stats.<stat_key>
+const stat_tooltip_definitions = {
+    attack_power: { related: ["physical_attack", "mystical_attack", "soul_attack", "crit", "crit_mult"] },
+    attack_speed: { related: [] },
+    cast_speed: { related: [] },
+    defense: { related: ["defense_proportion", "crit_prot"] },
+    hit_score: { related: [] },
+    dodge_score: { related: [] },
+};
+
+//Long names are for places with room to spare (tooltips, detailed stats page)
+function getStatLongName(stat_key) {
+    return t(`stats.long_name.${stat_key}`);
+}
+
+function getStatTooltip(stat_key) {
+    const definition = stat_tooltip_definitions[stat_key];
+    return {
+        title: getStatLongName(stat_key),
+        body: tHTML(`tooltips.stats.${stat_key}`),
+        rows: definition.related.map((related_key) => [
+            getStatLongName(related_key),
+            formatNumber(character.stats.total[related_key]),
+        ]),
+    };
+}
+
 function initStatGroups() {
     const area = document.getElementById("stat-group-area");
 
@@ -153,6 +182,7 @@ function initStatGroups() {
             cell.id = `stat-${stat_key.replaceAll("_", "-")}`;
             cell.className = "stat-cell";
             cell.dataset.stat = stat_key; //for the tooltips later
+            if (stat_tooltip_definitions[stat_key]) setTooltip(slot, () => getStatTooltip(stat_key));
             slot.appendChild(cell);
             row.appendChild(slot);
         });
@@ -172,11 +202,39 @@ function initStatGroups() {
     });
 }
 
+function getSubrankSpan(subrank) {
+    return styledSpan("rank", subrank.rank, subrank.rank.toUpperCase() + subrank.suffix);
+}
+
+function getLevelTooltip() {
+    const level = leveling.character_level;
+    const subrank = leveling.getSubrank(level);
+
+    const rows = [[t("tooltips.level.rank_label"), unwrapHTML(getSubrankSpan(subrank))]];
+    if (subrank.next) {
+        rows.push([
+            t("tooltips.level.next_rank_label"),
+            tHTML("tooltips.level.next_rank_value", {
+                rank: getSubrankSpan(subrank.next),
+                level: formatNumber(subrank.next.min_level, 9),
+            }),
+        ]);
+    }
+
+    return {
+        title: tHTML("tooltips.level.title", { level: formatNumber(level, 9) }),
+        body: tHTML(`tooltips.level.description.${subrank.rank}`),
+        rows: rows,
+    };
+}
+
 export function initStatsPage() {
     bindDisplay("level", "level-text",
         () => t("ui.stats_box.level_text", { level: formatNumber(leveling.character_level, 9) }),
         { style_group: "rank", getStyle: () => leveling.getRank(leveling.character_level) }
     );
+
+    setTooltip("level-text", getLevelTooltip);
 
     bindDisplay("title", "character-title",
         () => {

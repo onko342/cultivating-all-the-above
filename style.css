@@ -7,6 +7,15 @@
     --outline-white: -0.01px -0.01px 0 white, 0.01px -0.01px 0 white, -0.01px 0.01px 0 white, 0.01px 0.01px 0 white;
     --stat-line-height: 22px; /* height of every single-line row in the stats panel (title, realms, ranking) */
     --stat-line-gap: 3px; /* space between consecutive lines in the stats panel */
+    --tooltip-text-width: 260px; /* text blocks wrap at this; tables may push the box wider */
+    --tooltip-bg: rgba(7, 10, 32, 0.96);
+    --tooltip-border: #7fd4ee;
+    --tooltip-border-inner: rgba(127, 212, 238, 0.35);
+    --tooltip-border-width: 1px;
+    --tooltip-border-style: solid;
+    --tooltip-glow: rgba(110, 200, 255, 0.3);
+    --tooltip-title-color: #bfeeff;
+    --tooltip-text-color: #dfe8ff;
 }
 
 body {
@@ -618,7 +627,7 @@ body {
 
     /* Rows touch, and the overlap makes their two borders share one line. To bring the spacing back, change -1px to 2px */
     .stat-group + .stat-group {
-        margin-top: -1px;
+        margin-top: 2px;
     }
 
 .stat-slot {
@@ -766,4 +775,97 @@ body {
     color: white;
     font-size: 14px;
     width: 120px;
+}
+
+.tooltip {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10000;
+    box-sizing: border-box;
+    width: max-content; /* fits the contents... */
+    max-width: calc(100vw - 8px);
+    padding: 6px 10px;
+    background: var(--tooltip-bg);
+    color: var(--tooltip-text-color);
+    font-size: 13px;
+    line-height: 1.35;
+    border: var(--tooltip-border-width) var(--tooltip-border-style) var(--tooltip-border);
+    border-radius: 3px;
+    /* thin inner line for the double-border look, outer glow, drop shadow */
+    box-shadow: inset 0 0 0 2px var(--tooltip-bg), inset 0 0 0 3px var(--tooltip-border-inner), 0 0 10px var(--tooltip-glow), 0 4px 14px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+}
+
+    /* Ctrl held: the box becomes interactive (selectable text, hoverable content) */
+    .tooltip.is-pinned {
+        pointer-events: auto;
+        --tooltip-glow: rgba(255, 255, 255, 0.45);
+    }
+
+/* ...but text blocks are capped, so only a table can make the box wider */
+.tooltip-title,
+.tooltip-body,
+.tooltip-footer {
+    max-width: var(--tooltip-text-width);
+}
+
+.tooltip-title {
+    color: var(--tooltip-title-color);
+    font-weight: bold;
+}
+
+    .tooltip-title:not(:last-child) {
+        margin-bottom: 4px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid var(--tooltip-border-inner);
+    }
+
+.tooltip-footer {
+    margin-top: 5px;
+    padding-top: 4px;
+    border-top: 1px solid var(--tooltip-border-inner);
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.tooltip-table {
+    margin-top: 5px;
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+.tooltip-body + .tooltip-table {
+    margin-top: 6px;
+    border-top: 1px solid var(--tooltip-border-inner);
+}
+
+.tooltip-row-label {
+    padding: 1px 14px 1px 0;
+    opacity: 0.85;
+}
+
+.tooltip-row-value {
+    padding: 1px 0;
+    text-align: right;
+}
+
+/* Variants: only override the variables (plus border style/width where wanted) */
+.tooltip-variant-special {
+    --tooltip-bg: rgba(38, 26, 5, 0.96);
+    --tooltip-border: #f2c94c;
+    --tooltip-border-inner: rgba(242, 201, 76, 0.45);
+    --tooltip-border-width: 3px;
+    --tooltip-border-style: double;
+    --tooltip-glow: rgba(242, 201, 76, 0.4);
+    --tooltip-title-color: #ffe08a;
+}
+
+.tooltip-variant-danger {
+    --tooltip-bg: rgba(40, 6, 10, 0.96);
+    --tooltip-border: #ff6b6b;
+    --tooltip-border-inner: rgba(255, 107, 107, 0.4);
+    --tooltip-border-style: dashed;
+    --tooltip-glow: rgba(255, 90, 90, 0.4);
+    --tooltip-title-color: #ffb3b3;
 }
