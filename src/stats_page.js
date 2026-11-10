@@ -5,23 +5,75 @@ import { titles } from "./content/titles.js";
 import { leveling } from "./content/leveling.js";
 import { getRarityName } from "./content/rarities.js";
 import { bindDisplay, bindVisibility, bindBar, updateDisplay, setStyleClass, formatNumber, applyCompactSettings, styledSpan } from "./display.js";
-import { t, tHTML, unwrapHTML } from "./localization.js";
+import { t, tHTML, unwrapHTML, escapeHTML } from "./localization.js";
 import { settings } from "./content/settings.js";
 import { getLeagueTier } from "./content/ranking.js";
-import { setTooltip } from "./tooltip.js";
+import { setTooltip, hideTooltip } from "./tooltip.js";
+import { recalculateEffects } from "./effects.js";
 
 function getSelectedTitle() {
     return titles[character.selected_title] ?? null; //null if nothing is selected or id no longer exists
 }
 
 function getTitleName(title) {
-    return t(`titles.name.${title.name_key}`);
+    return title.getName();
 }
 
 function selectTitle(title_id) {
     character.selected_title = title_id;
-    updateDisplay("title");
-    //later: recalculate stats here when titles have effects
+    //title effects don't depend on which title is selected, but re-applying them keeps everything in sync.
+    //This also refreshes every display, including the title line.
+    recalculateEffects();
+}
+
+function formatSignedNumber(value) {
+    return `${value < 0 ? "-" : "+"}${formatNumber(Math.abs(value))}`;
+}
+
+//Stat bonuses and perks of a title as tooltip sections. Flags are deliberately not shown.
+function getTitleEffectSections(title) {
+    const effects = title.effects ?? {};
+    const stat_effects = effects.stats ?? {};
+    const sections = [];
+
+    const stat_rows = [];
+    Object.entries(stat_effects.flat ?? {}).forEach(([stat_key, value]) => {
+        stat_rows.push([escapeHTML(getStatLongName(stat_key)), formatSignedNumber(value)]);
+    });
+    Object.entries(stat_effects.percent ?? {}).forEach(([stat_key, value]) => {
+        stat_rows.push([escapeHTML(getStatLongName(stat_key)), `${formatSignedNumber(value)}%`]);
+    });
+    Object.entries(stat_effects.multiplier ?? {}).forEach(([stat_key, value]) => {
+        stat_rows.push([escapeHTML(getStatLongName(stat_key)), escapeHTML(t("tooltips.effects.multiplier_value", { value: formatNumber(value) }))]);
+    });
+    if (stat_rows.length > 0) {
+        sections.push({ heading: t("tooltips.effects.stat_bonuses"), rows: stat_rows });
+    }
+
+    const perk_items = (effects.perks ?? [])
+        .filter((perk_key) => character.perks[perk_key])
+        .map((perk_key) => [escapeHTML(t(`perks.${perk_key}.name`)), escapeHTML(character.perks[perk_key].description())]);
+    if (perk_items.length > 0) {
+        sections.push({ heading: t("tooltips.effects.perks"), items: perk_items });
+    }
+
+    return sections;
+}
+
+//title_id "" (or an id that no longer exists) is the "no title" case
+function getTitleTooltip(title_id) {
+    const title = titles[title_id];
+    if (!title) {
+        return {
+            title: tHTML("tooltips.titles.no_title.title"),
+            body: tHTML("tooltips.titles.no_title.description"),
+        };
+    }
+    return {
+        title: unwrapHTML(styledSpan("rarity", getRarityName(title.rarity), getTitleName(title))),
+        body: escapeHTML(title.description()),
+        sections: getTitleEffectSections(title),
+    };
 }
 
 function initTitleDropdown() {
@@ -30,7 +82,9 @@ function initTitleDropdown() {
     const list = document.getElementById("title-select-list");
 
     function closeList() {
+        if (list.hidden) return;
         list.hidden = true;
+        hideTooltip(); //the hovered option vanishes with the list, so its mouseout would never fire
     }
 
     function addOption(title_id, label, rarity_name) {
@@ -44,6 +98,7 @@ function initTitleDropdown() {
             selectTitle(title_id);
             closeList();
         });
+        setTooltip(item, () => getTitleTooltip(title_id));
         list.appendChild(item);
     }
 
@@ -58,7 +113,11 @@ function initTitleDropdown() {
         list.hidden = false;
     }
 
-    button.addEventListener("click", () => list.hidden ? openList() : closeList());
+    setTooltip(button, () => getTitleTooltip(character.selected_title));
+    button.addEventListener("click", () => {
+        hideTooltip(); //so the button's tooltip doesn't sit on top of the list
+        list.hidden ? openList() : closeList();
+    });
     document.addEventListener("click", (event) => {
         if (!wrapper.contains(event.target)) closeList();
     });

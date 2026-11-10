@@ -150,7 +150,10 @@
       "crit_prot": "Critical Hit Protection",
       "crit_mult": "Critical Hit Multiplier",
       "def_penetration": "Defense Penetration",
-      "def_penetration_proportion": "Proportional Defense Penetration"
+      "def_penetration_proportion": "Proportional Defense Penetration",
+      "level_xp": "Level XP Gain",
+      "all_skill_xp": "All Skill XP Gain",
+      "cultivation_qi": "Qi Cultivation Speed"
     }
   },
   "log": {
@@ -159,31 +162,55 @@
     "rank_line": "Your current rank is {rank}."
   },
   "titles": {
-    "name": {
-      "default_name": "Default title name",
-      "placeholder": "The [PLACEHOLDER] title no one ever gets",
-      "system_awakened": "First-Generation System Awakened",
-      "common_test": "Generic Common Title",
-      "uncommon_test": "Generic Uncommon Title",
-      "rare_test": "Rare Title, Is It Really Generic?",
-      "epic_test": "Not-so-generic Epic Title",
-      "legendary_test": "Definitely Not Generic Legendary Title",
-      "mythic_test": "If You Told Me This Was A Generic Mythic Title, Only Gods Know What Will Happen To You Next",
-      "transcendental_test": "Stop Threatening Me, Title Name! This Is A Generic Transcendental Title And I Will Transcend All Your Attempts To Punish Me For Saying That This Is A Generic Title!",
-      "divine_test": "Gods Here. Putting An End To This Generic Title Madness. I'm Sure Aosid9*h(49Uhdi(9#7(9x9@j37&84}2Ld*jl%^74x [Title Cleanup Protocol Activated. Error In Last Request Detected. Would You Like To Quick-Resolve This Error?]"
+    "default_id": {
+      "name": "Default title name",
+      "description": "Default title description. English description parts should include all spaces they need like this: "
     },
-    "description": {
-      "default_description": "Default title description. English description parts should include all spaces they need like this: ",
-      "placeholder_1": "This is a placeholder title. Gives a large dev boost",
-      "system_awakened": "Your world has been selected to be introduced to the magic of the greater universe. You, are one of the lucky ones fortunate enough to be living on it at the time of such an event. Or should I say unfortunate? Good luck. You'll need it.",
-      "common_test": "This is the most generic common title you can get. [test]",
-      "uncommon_test": "This is the most generic uncommon title you can get. [test]",
-      "rare_test": "This is the most generic rare title you can get... not? Why is this generic? [test]",
-      "epic_test": "Tell me, if this set of titles is really not generic, why do they have such generic names that say anything about the character? [test]",
-      "legendary_test": "Regardless of the name, these titles are definitely not what the normal player would get. [test]",
-      "mythic_test": "Indeed, they are titles that are only used for testing out the colors. Not used in any gameplay feature at all. [test]",
-      "transcendental_test": "You are wrong, Mr. System. They may be modified later to give the System Architect the means necessary to thoroughly test out the practicality of other parts of the system. [test]",
-      "divine_test": "Oh shut up, system. You know that that sort of artificial boost will only provide a skewed perspective of how the entire setup works. It wouldn't produce satisfactory results. It will only lead to cries of lack of balance. Why am I having this conversation with myself again? [test]"
+    "placeholder": {
+      "name": "The [PLACEHOLDER] title no one ever gets",
+      "description": "This is a placeholder title. Gives a large dev boost"
+    },
+    "system_awakened": {
+      "name": "First-Generation System Awakened",
+      "description": "Your world has been selected to be introduced to the magic of the greater universe. You, are one of the lucky ones fortunate enough to be living on it at the time of such an event. Or should I say unfortunate? Good luck. You'll need it."
+    },
+    "common_test": {
+      "name": "Generic Common Title",
+      "description": "This is the most generic common title you can get. [test]"
+    },
+    "uncommon_test": {
+      "name": "Generic Uncommon Title",
+      "description": "This is the most generic uncommon title you can get. [test]"
+    },
+    "rare_test": {
+      "name": "Rare Title, Is It Really Generic?",
+      "description": "This is the most generic rare title you can get... not? Why is this generic? [test]"
+    },
+    "epic_test": {
+      "name": "Not-so-generic Epic Title",
+      "description": "Tell me, if this set of titles is really not generic, why do they have such generic names that don't say anything about the character? [test]"
+    },
+    "legendary_test": {
+      "name": "Definitely Not Generic Legendary Title",
+      "description": "Regardless of the name, these titles are definitely not what the normal player would get. [test]"
+    },
+    "mythic_test": {
+      "name": "If You Told Me This Was A Generic Mythic Title, Only Gods Know What Will Happen To You Next",
+      "description": "Indeed, they are titles that are only used for testing out the colors. Not used in any gameplay feature at all. [test]"
+    },
+    "transcendental_test": {
+      "name": "Stop Threatening Me, Title Name! This Is A Generic Transcendental Title And I Will Transcend All Your Attempts To Punish Me For Saying That This Is A Generic Title!",
+      "description": "You are wrong, Mr. System. They may be modified later to give the System Architect the means necessary to thoroughly test out the practicality of other parts of the system. [test]"
+    },
+    "divine_test": {
+      "name": "Gods Here. Putting An End To This Generic Title Madness. I'm Sure Aosid9*h(49Uhdi(9#7(9x9@j37&84}2Ld*jl%^74x [Title Cleanup Protocol Activated. Error In Last Request Detected. Would You Like To Quick-Resolve This Error?]",
+      "description": "Oh shut up, system. You know that that sort of artificial boost will only provide a skewed perspective of how the entire setup works. It wouldn't produce satisfactory results. It will only lead to cries of lack of balance. Why am I having this conversation with myself again? [test]"
+    }
+  },
+  "perks": {
+    "useless_perk": {
+      "name": "Useless Perk",
+      "description": "This perk is absolutely, completely useless. How did you even get it in the first place?"
     }
   },
   "qi_cultivation": {
@@ -250,6 +277,17 @@
         "ss": "Beyond the confines of your world, everything is above you. Only you may reach towards the stars.",
         "sss": "Every boundary you cross feels unreachable; you reach past anyway. What is the top of a series is only the gateway to the next."
       }
+    },
+    "titles": {
+      "no_title": {
+        "title": "No title currently selected",
+        "description": "Click the title dropdown to change your title. All effects remain active no matter which title is selected."
+      }
+    },
+    "effects": {
+      "stat_bonuses": "Stat and XP Bonuses",
+      "perks": "Perks",
+      "multiplier_value": "x{value}"
     }
   }
 }

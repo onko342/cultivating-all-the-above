@@ -7,6 +7,7 @@ import { initStatsPage } from "./stats_page.js";
 import { leveling } from "./content/leveling.js";
 import { settings } from "./content/settings.js";
 import { initTooltips, setTooltip } from "./tooltip.js";
+import { recalculateEffects, addTitle } from "./effects.js";
 
 const name_input = document.getElementById("character-name-input");
 name_input.value = character.name;
@@ -30,6 +31,7 @@ async function init() {
     initTabs();
     initTooltips();
     initStatsPage();
+    recalculateEffects(); //on load: applies the effects of the titles the character already owns
 
     //testing formatNumber
     settings.setSetting("number_type", "standard");
@@ -51,19 +53,20 @@ async function init() {
     leveling.addXP(5000000000);
 
     //Add placeholder title (remove later)
-    character.titles.push("placeholder");
-    character.titles.push("common_test", "uncommon_test", "rare_test", "epic_test", "legendary_test", "mythic_test", "transcendental_test", "divine_test");
+    addTitle("placeholder");
+    ["common_test", "uncommon_test", "rare_test", "epic_test", "legendary_test", "mythic_test", "transcendental_test", "divine_test"].forEach(addTitle);
 
     //Cultivation flag test (remove later)
     character.setFlag("inner_qi_unlocked", true);
     character.setFlag("body_cultivation_unlocked", true);
     character.setFlag("spirit_unlocked", true);
-    character.stats.total.max_health = 123456789012;
+    character.base_stats.max_health = 123456789012;
+    character.base_stats.max_mana = 1234567;
+    character.base_stats.max_inner_qi = 80;
     character.stats.total.health = 123456789012;
-    character.stats.total.max_mana = 1234567;
     character.stats.total.mana = 1234567;
-    character.stats.total.max_inner_qi = 80;
     character.stats.total.inner_qi = 80;
+    recalculateEffects();
     settings.setSetting("compact_realms", true);
     settings.setSetting("compact_bars", true);
     applyCompactSettings();

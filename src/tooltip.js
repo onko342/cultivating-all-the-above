@@ -4,9 +4,10 @@
 //Content is returned by a function (called on every show/refresh) so it always reflects live values.
 //
 //Content spec (the provider may return any of these, or null for "no tooltip right now"):
-//  "html string" | Node | { title, body, rows: [[label, value], ...], footer, variant }
-//All strings are inserted as HTML, so pass t()/tHTML() output, never raw user input.
-//variant: optional name, adds the class "tooltip-variant-<name>" (see style.css)
+//  "html string" | Node | { title, body, rows, sections, footer, variant }
+//  rows: [[label, value], ...] (aligned table)
+//  sections: [{ heading, rows: [[label, value], ...], items: [[name, text], ...] }, ...]
+//    heading is underlined; rows make an aligned table, items are wrapped "name: text" lines
 
 const gap_from_cursor = 12; //px between the entry point and the box
 const edge_margin = 4; //px kept free at the screen edges
@@ -67,6 +68,40 @@ function makeBlock(class_name, value) {
 }
 
 //Builds the box contents. Returns false when there is nothing to show.
+function buildTable(rows) {
+    const table = document.createElement("table");
+    table.className = "tooltip-table";
+    const table_body = document.createElement("tbody");
+    rows.forEach(([label, value]) => {
+        const row = document.createElement("tr");
+        const label_cell = document.createElement("td");
+        label_cell.className = "tooltip-row-label";
+        label_cell.innerHTML = label;
+        const value_cell = document.createElement("td");
+        value_cell.className = "tooltip-row-value";
+        value_cell.innerHTML = value;
+        row.append(label_cell, value_cell);
+        table_body.appendChild(row);
+    });
+    table.appendChild(table_body);
+    return table;
+}
+
+function buildSection(section) {
+    const element = document.createElement("div");
+    element.className = "tooltip-section";
+    if (section.heading) element.appendChild(makeBlock("tooltip-section-heading", section.heading));
+    if (section.rows && section.rows.length > 0) element.appendChild(buildTable(section.rows));
+    (section.items ?? []).forEach(([name, text]) => {
+        const item = document.createElement("div");
+        item.className = "tooltip-item";
+        item.innerHTML = `<span class="tooltip-item-name">${name}</span>${text}`;
+        element.appendChild(item);
+    });
+    return element;
+}
+
+//Builds the box contents. Returns false when there is nothing to show.
 function renderContent() {
     const getContent = tooltip_sources.get(state.owner);
     let content = getContent ? getContent() : null;
@@ -76,24 +111,8 @@ function renderContent() {
     const fragment = document.createDocumentFragment();
     if (content.title) fragment.appendChild(makeBlock("tooltip-title", content.title));
     if (content.body) fragment.appendChild(makeBlock("tooltip-body", content.body));
-    if (content.rows && content.rows.length > 0) {
-        const table = document.createElement("table");
-        table.className = "tooltip-table";
-        const table_body = document.createElement("tbody");
-        content.rows.forEach(([label, value]) => {
-            const row = document.createElement("tr");
-            const label_cell = document.createElement("td");
-            label_cell.className = "tooltip-row-label";
-            label_cell.innerHTML = label;
-            const value_cell = document.createElement("td");
-            value_cell.className = "tooltip-row-value";
-            value_cell.innerHTML = value;
-            row.append(label_cell, value_cell);
-            table_body.appendChild(row);
-        });
-        table.appendChild(table_body);
-        fragment.appendChild(table);
-    }
+    if (content.rows && content.rows.length > 0) fragment.appendChild(buildTable(content.rows));
+    (content.sections ?? []).forEach((section) => fragment.appendChild(buildSection(section)));
     if (content.footer) fragment.appendChild(makeBlock("tooltip-footer", content.footer));
 
     box.className = content.variant ? `tooltip tooltip-variant-${content.variant}` : "tooltip";

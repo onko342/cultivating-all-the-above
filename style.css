@@ -869,3 +869,43 @@ body {
     --tooltip-glow: rgba(255, 90, 90, 0.4);
     --tooltip-title-color: #ffb3b3;
 }
+
+.tooltip-title,
+.tooltip-body,
+.tooltip-footer,
+.tooltip-item {
+    overflow-wrap: anywhere;
+}
+
+.tooltip-section {
+    margin-top: 8px;
+}
+
+.tooltip-section-heading {
+    margin-bottom: 2px;
+    color: var(--tooltip-title-color);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.tooltip-section .tooltip-table {
+    margin-top: 0;
+    border-top: none;
+}
+
+.tooltip-section .tooltip-row-label::after {
+    content: ":";
+}
+
+.tooltip-item {
+    max-width: var(--tooltip-text-width);
+    padding: 1px 0;
+}
+
+.tooltip-item-name {
+    opacity: 0.85;
+}
+
+    .tooltip-item-name::after {
+        content: ": ";
+    }
