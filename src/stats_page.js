@@ -287,6 +287,19 @@ function getLevelTooltip() {
     };
 }
 
+//PLACEHOLDERS: the realm lines and their tooltips are fixed to the "no cultivation" realms until realm tracking exists.
+//Replace these with the character's actual realms once cultivation content is implemented.
+const placeholder_realm_qi = "qi_cultivation.realms.latent_roots";
+const placeholder_realm_body = "body_cultivation.realms.mortal_body";
+
+//realm_path is the locale path of a realm, which holds its name and description
+function getRealmTooltip(realm_path) {
+    return {
+        title: tHTML(`${realm_path}.name`),
+        body: tHTML(`${realm_path}.description`),
+    };
+}
+
 export function initStatsPage() {
     bindDisplay("level", "level-text",
         () => t("ui.stats_box.level_text", { level: formatNumber(leveling.character_level, 9) }),
@@ -311,14 +324,16 @@ export function initStatsPage() {
 
     //PLACEHOLDERS: realm tracking doesn't exist yet. Replace with the character's actual realms once cultivation content is implemented
     bindDisplay("realm_qi", "realm-qi-line",
-        () => t("qi_cultivation.realms.latent_roots"),
+        () => t(`${placeholder_realm_qi}.name`),
         { show_if: () => character.global_flags.inner_qi_unlocked, fit_text: true }
     );
+    setTooltip("realm-qi-line", () => getRealmTooltip(placeholder_realm_qi));
 
     bindDisplay("realm_body", "realm-body-line",
-        () => t("body_cultivation.realms.mortal_body"),
+        () => t(`${placeholder_realm_body}.name`),
         { show_if: () => character.global_flags.body_cultivation_unlocked, fit_text: true }
     );
+    setTooltip("realm-body-line", () => getRealmTooltip(placeholder_realm_body));
 
     initBars();
 

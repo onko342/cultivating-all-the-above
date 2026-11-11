@@ -124,6 +124,36 @@
   },
   "stats": {
     "long_name": {
+      "max_health": "最大生命",
+      "health": "生命",
+      "health_regen_flat": "生命回復",
+      "health_regen_proportion": "比例生命回復",
+      "health_regen_flat_idle": "戰外生命回復",
+      "health_regen_proportion_idle": "戰外比例生命回復",
+      "max_stamina": "最大體力",
+      "stamina": "體力",
+      "stamina_regen_flat": "體力恢復",
+      "stamina_regen_proportion": "比例體力恢復",
+      "stamina_regen_flat_idle": "戰外體力恢復",
+      "stamina_regen_proportion_idle": "戰外比例體力恢復",
+      "max_mana": "最大魔力",
+      "mana": "魔力",
+      "mana_regen_flat": "魔力恢復",
+      "mana_regen_proportion": "比例魔力恢復",
+      "mana_regen_flat_idle": "戰外魔力恢復",
+      "mana_regen_proportion_idle": "戰外比例魔力恢復",
+      "max_inner_qi": "最大內氣",
+      "inner_qi": "內氣",
+      "inner_qi_regen_flat": "內氣恢復",
+      "inner_qi_regen_proportion": "比例內氣恢復",
+      "inner_qi_regen_flat_idle": "戰外內氣恢復",
+      "inner_qi_regen_proportion_idle": "戰外比例內氣恢復",
+      "max_spirit": "最大魂力",
+      "spirit": "魂力",
+      "spirit_regen_flat": "魂力回復",
+      "spirit_regen_proportion": "比例魂力回復",
+      "spirit_regen_flat_idle": "戰外魂力回復",
+      "spirit_regen_proportion_idle": "戰外比例魂力回復",
       "strength": "力量",
       "constitution": "體質",
       "agility": "敏捷",
@@ -215,12 +245,18 @@
   },
   "qi_cultivation": {
     "realms": {
-      "latent_roots": "潛在靈根"
+      "latent_roots": {
+        "name": "潛在靈根",
+        "description": "你的靈根仍在沉睡。吸納第一縷靈氣，踏上修法之路。"
+      }
     }
   },
   "body_cultivation": {
     "realms": {
-      "mortal_body": "凡人之軀"
+      "mortal_body": {
+        "name": "凡人之軀",
+        "description": "你的身體尚未經過修行者的手段淬鍊。煉體能解放與生俱來的肉體潛能。"
+      }
     }
   },
   "locations": {

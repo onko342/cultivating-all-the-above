@@ -124,6 +124,36 @@
   },
   "stats": {
     "long_name": {
+      "max_health": "Max Health",
+      "health": "Health",
+      "health_regen_flat": "Health Regeneration",
+      "health_regen_proportion": "Proportional Health Regeneration",
+      "health_regen_flat_idle": "Idle Health Regeneration",
+      "health_regen_proportion_idle": "Idle Proportional Health Regeneration",
+      "max_stamina": "Max Stamina",
+      "stamina": "Stamina",
+      "stamina_regen_flat": "Stamina Recovery",
+      "stamina_regen_proportion": "Proportional Stamina Recovery",
+      "stamina_regen_flat_idle": "Idle Stamina Recovery",
+      "stamina_regen_proportion_idle": "Idle Proportional Stamina Recovery",
+      "max_mana": "Max Mana",
+      "mana": "Mana",
+      "mana_regen_flat": "Mana Recovery",
+      "mana_regen_proportion": "Proportional Mana Recovery",
+      "mana_regen_flat_idle": "Idle Mana Recovery",
+      "mana_regen_proportion_idle": "Idle Proportional Mana Recovery",
+      "max_inner_qi": "Max Inner Qi",
+      "inner_qi": "Inner Qi",
+      "inner_qi_regen_flat": "Inner Qi Recovery",
+      "inner_qi_regen_proportion": "Proportional Inner Qi Recovery",
+      "inner_qi_regen_flat_idle": "Idle Inner Qi Recovery",
+      "inner_qi_regen_proportion_idle": "Idle Proportional Inner Qi Recovery",
+      "max_spirit": "Max Spirit",
+      "spirit": "Spirit",
+      "spirit_regen_flat": "Spirit Regeneration",
+      "spirit_regen_proportion": "Proportional Spirit Regeneration",
+      "spirit_regen_flat_idle": "Idle Spirit Regeneration",
+      "spirit_regen_proportion_idle": "Idle Proportional Spirit Regeneration",
       "strength": "Strength",
       "constitution": "Constitution",
       "agility": "Agility",
@@ -215,12 +245,18 @@
   },
   "qi_cultivation": {
     "realms": {
-      "latent_roots": "Latent Roots"
+      "latent_roots": {
+        "name": "Latent Roots",
+        "description": "Your spiritual roots lay dormant. Gather your first strand of qi to step onto the path of qi cultivation."
+      }
     }
   },
   "body_cultivation": {
     "realms": {
-      "mortal_body": "Mortal Body"
+      "mortal_body": {
+        "name": "Mortal Body",
+        "description": "Your body is not tempered by cultivator means yet. Body cultivation offers an unlocking of innate physical potential."
+      }
     }
   },
   "locations": {
