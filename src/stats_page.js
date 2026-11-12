@@ -26,8 +26,14 @@ function selectTitle(title_id) {
     recalculateEffects();
 }
 
-function formatSignedNumber(value) {
-    return `${value < 0 ? "-" : "+"}${formatNumber(Math.abs(value))}`;
+//formatNumber truncates, so float noise like 1.15 * 100 = 114.99999999999999 would turn 1.15 into 1.14.
+//This rounds the noise away and nudges the value up a hair first.
+function cleanNumber(value) {
+    return Math.round(value * 1e6) / 1e6 + 1e-9;
+}
+
+function formatSigned(value, decimals = 2) {
+    return `${value < 0 ? "-" : "+"}${formatNumber(cleanNumber(Math.abs(value)), 6, decimals)}`;
 }
 
 //Stat bonuses and perks of a title as tooltip sections. Flags are deliberately not shown.
@@ -38,13 +44,13 @@ function getTitleEffectSections(title) {
 
     const stat_rows = [];
     Object.entries(stat_effects.flat ?? {}).forEach(([stat_key, value]) => {
-        stat_rows.push([escapeHTML(getStatLongName(stat_key)), formatSignedNumber(value)]);
+        stat_rows.push([escapeHTML(getStatLongName(stat_key)), formatSigned(value)]);
     });
     Object.entries(stat_effects.percent ?? {}).forEach(([stat_key, value]) => {
-        stat_rows.push([escapeHTML(getStatLongName(stat_key)), `${formatSignedNumber(value)}%`]);
+        stat_rows.push([escapeHTML(getStatLongName(stat_key)), `${formatSigned(value)}%`]);
     });
     Object.entries(stat_effects.multiplier ?? {}).forEach(([stat_key, value]) => {
-        stat_rows.push([escapeHTML(getStatLongName(stat_key)), escapeHTML(t("tooltips.effects.multiplier_value", { value: formatNumber(value) }))]);
+        stat_rows.push([escapeHTML(getStatLongName(stat_key)), escapeHTML(t("tooltips.effects.multiplier_value", { value: formatNumber(cleanNumber(value)) }))]);
     });
     if (stat_rows.length > 0) {
         sections.push({ heading: t("tooltips.effects.stat_bonuses"), rows: stat_rows });
@@ -69,9 +75,13 @@ function getTitleTooltip(title_id) {
             body: tHTML("tooltips.titles.no_title.description"),
         };
     }
+    const rarity_name = getRarityName(title.rarity);
     return {
-        title: unwrapHTML(styledSpan("rarity", getRarityName(title.rarity), getTitleName(title))),
+        title: unwrapHTML(styledSpan("rarity", rarity_name, getTitleName(title))),
         body: escapeHTML(title.description()),
+        tag: tHTML("tooltips.titles.rarity_line", {
+            rarity: styledSpan("rarity", rarity_name, t(`rarities.${rarity_name}`)),
+        }),
         sections: getTitleEffectSections(title),
     };
 }
@@ -138,8 +148,12 @@ function resourceBar(key, current_stat, max_stat, { show_if = null, pair = null 
         key: key,
         show_if: show_if,
         pair: pair,
+        resource: current_stat, //the resource's name inside stat keys, e.g. "health" for "health_regen_flat"
         getCurrent: () => character.stats.total[current_stat],
         getMax: () => character.stats.total[max_stat],
+        //stats whose sources are broken down in the tooltip, and stats only listed by value
+        breakdown_stats: [max_stat, `${current_stat}_regen_flat`, `${current_stat}_regen_proportion`],
+        related_stats: [`${current_stat}_regen_flat_idle`, `${current_stat}_regen_proportion_idle`],
     };
 }
 
@@ -150,8 +164,11 @@ const bar_definitions = [
         key: "xp",
         show_if: null,
         pair: null,
+        resource: null, //no regeneration
         getCurrent: () => leveling.current_xp,
         getMax: () => leveling.getXPToLevel(leveling.character_level),
+        breakdown_stats: ["level_xp", "all_skill_xp"],
+        related_stats: [],
     },
     resourceBar("hp", "health", "max_health"),
     resourceBar("st", "stamina", "max_stamina", { pair: "mp" }),
@@ -167,6 +184,49 @@ function isHalfWidthBar(definition) {
     return !partner.show_if || partner.show_if();
 }
 
+//Regeneration shown as "+1.5" or "-2" (more decimals for tiny amounts so they don't show up as 0)
+function formatRegenAmount(amount, max_digits = 6) {
+    const decimals = Math.abs(amount) >= 1 ? 2 : 4;
+    return `${amount < 0 ? "-" : "+"}${formatNumber(cleanNumber(Math.abs(amount)), max_digits, decimals)}`;
+}
+
+function getBarRegen(definition) {
+    return definition.resource ? character.getRegenPerSecond(definition.resource).total : 0;
+}
+
+//"{Resource} Balance": how the regeneration parts add up to the amount regenerated per second
+function getBalanceSection(definition) {
+    const regen = character.getRegenPerSecond(definition.resource);
+    const rows = regen.parts
+        .filter((part) => part.amount !== 0)
+        .map((part) => [
+            escapeHTML(t(`tooltips.balance.${part.key}`, part.rate === undefined ? {} : { percent: formatStatValue(part.stat, part.rate) })),
+            escapeHTML(t("tooltips.balance.per_second", { amount: formatRegenAmount(part.amount) })),
+        ]);
+    return {
+        heading: tHTML("tooltips.balance.heading", { resource: t(`tooltips.bars.${definition.key}.name`) }),
+        table: {
+            rows: rows,
+            foot: [
+                escapeHTML(t("tooltips.breakdown.total")),
+                escapeHTML(t("tooltips.balance.per_second", { amount: formatRegenAmount(regen.total) })),
+            ],
+        },
+    };
+}
+
+//Descriptions live in locales under tooltips.bars.<bar key>
+function getBarTooltip(definition) {
+    const sections = definition.breakdown_stats.map((stat_key) => getStatSourcesSection(stat_key));
+    if (definition.related_stats.length > 0) sections.push(getRelatedStatsSection(definition.related_stats));
+    if (definition.resource) sections.push(getBalanceSection(definition));
+    return {
+        title: tHTML(`tooltips.bars.${definition.key}.name`),
+        body: tHTML(`tooltips.bars.${definition.key}.description`),
+        sections: sections,
+    };
+}
+
 function initBars() {
     bar_definitions.forEach((definition) => {
         const { key, getCurrent, getMax, show_if } = definition;
@@ -176,13 +236,19 @@ function initBars() {
             show_if: show_if,
             getText: () => {
                 const max_digits = isHalfWidthBar(definition) ? bar_max_digits_half : bar_max_digits_full;
-                return t("ui.stats_box.bar_text", {
+                let text = t("ui.stats_box.bar_text", {
                     name: t(`ui.stats_box.bar_name_${key}`),
                     current: formatNumber(getCurrent(), max_digits, 0),
                     max: Number.isFinite(getMax()) ? formatNumber(getMax(), max_digits, 0) : "∞", //XP to level is Infinity past the last defined level
                 });
+                const regen = getBarRegen(definition);
+                if (Number.isFinite(regen) && regen !== 0) {
+                    text += " " + t("ui.stats_box.bar_regen", { amount: formatRegenAmount(regen, max_digits) });
+                }
+                return text;
             },
         });
+        setTooltip(`bar-${key}`, () => getBarTooltip(definition));
     });
 }
 
@@ -197,31 +263,101 @@ const stat_group_definitions = [
     { key: "defense", color: "derived", stats: ["defense", "hit_score", "dodge_score"] },
 ];
 
-//Tooltips for the derived stats. related = other stats shown in a table under the description.
-//Description text lives in locales under tooltips.stats.<stat_key>
-const stat_tooltip_definitions = {
-    attack_power: { related: ["physical_attack", "mystical_attack", "soul_attack", "crit", "crit_mult"] },
-    attack_speed: { related: [] },
-    cast_speed: { related: [] },
-    defense: { related: ["defense_proportion", "crit_prot"] },
-    hit_score: { related: [] },
-    dodge_score: { related: [] },
-};
 
 //Long names are for places with room to spare (tooltips, detailed stats page)
 function getStatLongName(stat_key) {
     return t(`stats.long_name.${stat_key}`);
 }
 
-function getStatTooltip(stat_key) {
-    const definition = stat_tooltip_definitions[stat_key];
+//Proportion stats (regen rates, damage reduction...) are stored as fractions (0.02) but shown as percentages (2%)
+function isProportionStat(stat_key) {
+    return /_proportion(_idle)?$/.test(stat_key);
+}
+
+//A stat's value as shown in tooltips. signed adds a + (or -) for bonuses; leave it off for base and total values.
+function formatStatValue(stat_key, value, { signed = false } = {}) {
+    const is_proportion = isProportionStat(stat_key);
+    const shown = is_proportion ? value * 100 : value;
+    const sign = shown < 0 ? "-" : (signed ? "+" : "");
+    const text = formatNumber(cleanNumber(Math.abs(shown)), 6, is_proportion ? 3 : 2);
+    return `${sign}${text}${is_proportion ? "%" : ""}`;
+}
+
+//One bonus value, written by its kind: +N, +N%, xN or ^N
+function formatBonus(stat_key, kind, value) {
+    if (kind === "flat") return formatStatValue(stat_key, value, { signed: true });
+    if (kind === "percent") return `${formatSigned(value)}%`;
+    const text = formatNumber(cleanNumber(value));
+    return t(kind === "multiplier" ? "tooltips.effects.multiplier_value" : "tooltips.effects.exponent_value", { value: text });
+}
+
+const empty_cell = "–";
+
+//"Sources of {stat}": one row per source, one column per bonus type, a total row at the bottom, and a Total column
+//with the final value (only when there is more than the flat column).
+function getStatSourcesSection(stat_key) {
+    const breakdown = character.getStatBreakdown(stat_key);
+    const heading = tHTML("tooltips.breakdown.heading", { stat: getStatLongName(stat_key) });
+    const base_label = escapeHTML(t("stats.source_name.base"));
+
+    //nothing but the base value: a total row would only repeat it
+    if (breakdown.sources.length === 0) {
+        return { heading: heading, table: { rows: [[base_label, formatStatValue(stat_key, breakdown.base)]] } };
+    }
+
+    const columns = breakdown.columns;
+    const has_total_column = columns.length > 1;
+    const withTotalColumn = (cells, total_cell = "") => has_total_column ? [...cells, total_cell] : cells;
+
+    const head = columns.length > 1
+        ? withTotalColumn(["", ...columns.map((column) => escapeHTML(t(`tooltips.breakdown.${column.key}`)))], escapeHTML(t("tooltips.breakdown.total")))
+        : null;
+
+    const base_row = withTotalColumn([
+        base_label,
+        ...columns.map((column) => column.key === "flat" ? formatStatValue(stat_key, breakdown.base) : empty_cell),
+    ]);
+
+    const source_rows = breakdown.sources.map((source) => withTotalColumn([
+        escapeHTML(t(`stats.source_name.${source}`)),
+        ...columns.map((column) => column.values[source] !== undefined ? formatBonus(stat_key, column.kind, column.values[source]) : empty_cell),
+    ]));
+
+    //total row: each column's combined value (the flat column includes the base), then the final value of the stat
+    const total_row = withTotalColumn([
+        escapeHTML(t("tooltips.breakdown.total")),
+        ...columns.map((column) => column.key === "flat"
+            ? formatStatValue(stat_key, breakdown.base + column.total)
+            : formatBonus(stat_key, column.kind, column.total)),
+    ], formatStatValue(stat_key, breakdown.final));
+
+    return { heading: heading, table: { head: head, rows: [base_row, ...source_rows], foot: total_row } };
+}
+
+//Other stats listed by value only, in their own section at the bottom of a tooltip
+function getRelatedStatsSection(stat_keys) {
     return {
-        title: getStatLongName(stat_key),
-        body: tHTML(`tooltips.stats.${stat_key}`),
-        rows: definition.related.map((related_key) => [
-            getStatLongName(related_key),
-            formatNumber(character.stats.total[related_key]),
+        heading: tHTML("tooltips.sections.related_stats"),
+        rows: stat_keys.map((stat_key) => [
+            escapeHTML(getStatLongName(stat_key)),
+            formatStatValue(stat_key, character.stats.total[stat_key]),
         ]),
+    };
+}
+
+//Related stats for the stats that have some. Description text lives in locales under tooltips.stats.<stat_key>
+const stat_related_stats = {
+    attack_power: ["physical_attack", "mystical_attack", "soul_attack", "crit", "crit_mult"],
+    defense: ["defense_proportion", "crit_prot"],
+};
+
+function getStatTooltip(stat_key) {
+    const sections = [getStatSourcesSection(stat_key)];
+    if (stat_related_stats[stat_key]) sections.push(getRelatedStatsSection(stat_related_stats[stat_key]));
+    return {
+        title: escapeHTML(getStatLongName(stat_key)),
+        body: tHTML(`tooltips.stats.${stat_key}`),
+        sections: sections,
     };
 }
 
@@ -241,7 +377,7 @@ function initStatGroups() {
             cell.id = `stat-${stat_key.replaceAll("_", "-")}`;
             cell.className = "stat-cell";
             cell.dataset.stat = stat_key; //for the tooltips later
-            if (stat_tooltip_definitions[stat_key]) setTooltip(slot, () => getStatTooltip(stat_key));
+            setTooltip(slot, () => getStatTooltip(stat_key));
             slot.appendChild(cell);
             row.appendChild(slot);
         });

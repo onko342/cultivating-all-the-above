@@ -18,6 +18,7 @@
       "bar_name_mp": "MP",
       "bar_name_qi": "QI",
       "bar_name_sp": "SP",
+      "bar_regen": "({amount}/s)",
       "ranking_text": "{world} Ranking: {rank}",
       "stat_text": "{name} {value}",
       "stat_name_strength": "STR",
@@ -125,31 +126,26 @@
   "stats": {
     "long_name": {
       "max_health": "Max Health",
-      "health": "Health",
+      "max_stamina": "Max Stamina",
+      "max_mana": "Max Mana",
+      "max_inner_qi": "Max Inner Qi",
+      "max_spirit": "Max Spirit",
       "health_regen_flat": "Health Regeneration",
       "health_regen_proportion": "Proportional Health Regeneration",
       "health_regen_flat_idle": "Idle Health Regeneration",
       "health_regen_proportion_idle": "Idle Proportional Health Regeneration",
-      "max_stamina": "Max Stamina",
-      "stamina": "Stamina",
-      "stamina_regen_flat": "Stamina Recovery",
-      "stamina_regen_proportion": "Proportional Stamina Recovery",
-      "stamina_regen_flat_idle": "Idle Stamina Recovery",
-      "stamina_regen_proportion_idle": "Idle Proportional Stamina Recovery",
-      "max_mana": "Max Mana",
-      "mana": "Mana",
-      "mana_regen_flat": "Mana Recovery",
-      "mana_regen_proportion": "Proportional Mana Recovery",
-      "mana_regen_flat_idle": "Idle Mana Recovery",
-      "mana_regen_proportion_idle": "Idle Proportional Mana Recovery",
-      "max_inner_qi": "Max Inner Qi",
-      "inner_qi": "Inner Qi",
-      "inner_qi_regen_flat": "Inner Qi Recovery",
-      "inner_qi_regen_proportion": "Proportional Inner Qi Recovery",
-      "inner_qi_regen_flat_idle": "Idle Inner Qi Recovery",
-      "inner_qi_regen_proportion_idle": "Idle Proportional Inner Qi Recovery",
-      "max_spirit": "Max Spirit",
-      "spirit": "Spirit",
+      "stamina_regen_flat": "Stamina Regeneration",
+      "stamina_regen_proportion": "Proportional Stamina Regeneration",
+      "stamina_regen_flat_idle": "Idle Stamina Regeneration",
+      "stamina_regen_proportion_idle": "Idle Proportional Stamina Regeneration",
+      "mana_regen_flat": "Mana Regeneration",
+      "mana_regen_proportion": "Proportional Mana Regeneration",
+      "mana_regen_flat_idle": "Idle Mana Regeneration",
+      "mana_regen_proportion_idle": "Idle Proportional Mana Regeneration",
+      "inner_qi_regen_flat": "Inner Qi Regeneration",
+      "inner_qi_regen_proportion": "Proportional Inner Qi Regeneration",
+      "inner_qi_regen_flat_idle": "Idle Inner Qi Regeneration",
+      "inner_qi_regen_proportion_idle": "Idle Proportional Inner Qi Regeneration",
       "spirit_regen_flat": "Spirit Regeneration",
       "spirit_regen_proportion": "Proportional Spirit Regeneration",
       "spirit_regen_flat_idle": "Idle Spirit Regeneration",
@@ -184,7 +180,23 @@
       "level_xp": "Level XP Gain",
       "all_skill_xp": "All Skill XP Gain",
       "cultivation_qi": "Qi Cultivation Speed"
+    },
+    "source_name": {
+      "base": "Base",
+      "level": "Level",
+      "titles": "Titles",
+      "skills": "Skills"
     }
+  },
+  "rarities": {
+    "common": "Common",
+    "uncommon": "Uncommon",
+    "rare": "Rare",
+    "epic": "Epic",
+    "legendary": "Legendary",
+    "mythic": "Mythic",
+    "transcendental": "Transcendental",
+    "divine": "Divine"
   },
   "log": {
     "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDERS",
@@ -318,12 +330,63 @@
       "no_title": {
         "title": "No title currently selected",
         "description": "Click the title dropdown to change your title. All effects remain active no matter which title is selected."
-      }
+      },
+      "rarity_line": "{rarity} Title"
     },
     "effects": {
       "stat_bonuses": "Stat and XP Bonuses",
       "perks": "Perks",
-      "multiplier_value": "x{value}"
+      "multiplier_value": "x{value}",
+      "exponent_value": "^{value}"
+    },
+    "sections": {
+      "related_stats": "Related Stats"
+    },
+    "breakdown": {
+      "heading": "Sources of {stat}",
+      "flat": "Flat",
+      "percent": "Percent",
+      "multiplier": "Multiplier",
+      "exponent": "Exponent",
+      "final_flat": "Final Flat",
+      "final_percent": "Final Percent",
+      "final_multiplier": "Final Multiplier",
+      "final_exponent": "Final Exponent",
+      "total": "Total"
+    },
+    "balance": {
+      "heading": "{resource} Balance",
+      "per_second": "{amount}/s",
+      "flat": "Flat regeneration",
+      "proportion": "Proportional regeneration ({percent} of max)",
+      "flat_idle": "Idle flat regeneration",
+      "proportion_idle": "Idle proportional regeneration ({percent} of max)"
+    },
+    "bars": {
+      "xp": {
+        "name": "Experience",
+        "description": "Your progress toward the next level. Fill it up to level up and become stronger."
+      },
+      "hp": {
+        "name": "Health",
+        "description": "This is your lifeforce, let it hit zero and you die."
+      },
+      "st": {
+        "name": "Stamina",
+        "description": "Your physical endurance, used up when performing strenuous activities. You won't fight well without stamina, so rest up before heading into battle."
+      },
+      "mp": {
+        "name": "Mana",
+        "description": "The mystical energy used to perform magic. Recovers on its own slowly, but sleep and meditation do wonders for replenishing."
+      },
+      "qi": {
+        "name": "Inner Qi",
+        "description": "Spiritual qi that has truly become a part of you is called Inner Qi. Used to power cultivation arts. Can only be replenished by focused cultivation."
+      },
+      "sp": {
+        "name": "Spirit",
+        "description": "The stability of your soul, using soul arts and receiving soul attacks both take from this pool. Reminder: Soul damage is not to be taken lightly."
+      }
     }
   }
 }

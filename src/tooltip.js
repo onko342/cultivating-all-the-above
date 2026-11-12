@@ -4,10 +4,12 @@
 //Content is returned by a function (called on every show/refresh) so it always reflects live values.
 //
 //Content spec (the provider may return any of these, or null for "no tooltip right now"):
-//  "html string" | Node | { title, body, rows, sections, footer, variant }
+//  "html string" | Node | { title, body, tag, rows, sections, footer, variant }
+//  tag: one small line under the body (e.g. "Rare Title")
 //  rows: [[label, value], ...] (aligned table)
-//  sections: [{ heading, rows: [[label, value], ...], items: [[name, text], ...] }, ...]
-//    heading is underlined; rows make an aligned table, items are wrapped "name: text" lines
+//  sections: [{ heading, rows, items, table }, ...]
+//    heading is underlined; rows = [[label, value], ...] aligned table; items = [[name, text], ...] wrapped lines;
+//    table = { head: [...], rows: [[...], ...], foot: [...] } for tables with several columns (first column left, others right)
 
 const gap_from_cursor = 12; //px between the entry point and the box
 const edge_margin = 4; //px kept free at the screen edges
@@ -87,11 +89,41 @@ function buildTable(rows) {
     return table;
 }
 
+//Table with an optional header row and an optional total row at the bottom
+function buildDataTable({ head, rows, foot }) {
+    const table = document.createElement("table");
+    table.className = "tooltip-table tooltip-data-table";
+
+    function addRow(parent, cells, cell_tag, row_class) {
+        const row = document.createElement("tr");
+        if (row_class) row.className = row_class;
+        cells.forEach((cell, index) => {
+            const element = document.createElement(cell_tag);
+            element.className = index === 0 ? "tooltip-cell-label" : "tooltip-cell-value";
+            element.innerHTML = cell;
+            row.appendChild(element);
+        });
+        parent.appendChild(row);
+    }
+
+    if (head) {
+        const table_head = document.createElement("thead");
+        addRow(table_head, head, "th");
+        table.appendChild(table_head);
+    }
+    const table_body = document.createElement("tbody");
+    (rows ?? []).forEach((cells) => addRow(table_body, cells, "td"));
+    if (foot) addRow(table_body, foot, "td", "tooltip-total-row");
+    table.appendChild(table_body);
+    return table;
+}
+
 function buildSection(section) {
     const element = document.createElement("div");
     element.className = "tooltip-section";
     if (section.heading) element.appendChild(makeBlock("tooltip-section-heading", section.heading));
     if (section.rows && section.rows.length > 0) element.appendChild(buildTable(section.rows));
+    if (section.table) element.appendChild(buildDataTable(section.table));
     (section.items ?? []).forEach(([name, text]) => {
         const item = document.createElement("div");
         item.className = "tooltip-item";
@@ -111,6 +143,7 @@ function renderContent() {
     const fragment = document.createDocumentFragment();
     if (content.title) fragment.appendChild(makeBlock("tooltip-title", content.title));
     if (content.body) fragment.appendChild(makeBlock("tooltip-body", content.body));
+    if (content.tag) fragment.appendChild(makeBlock("tooltip-tag", content.tag));
     if (content.rows && content.rows.length > 0) fragment.appendChild(buildTable(content.rows));
     (content.sections ?? []).forEach((section) => fragment.appendChild(buildSection(section)));
     if (content.footer) fragment.appendChild(makeBlock("tooltip-footer", content.footer));

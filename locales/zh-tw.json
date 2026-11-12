@@ -18,6 +18,7 @@
       "bar_name_mp": "魔力",
       "bar_name_qi": "內氣",
       "bar_name_sp": "魂力",
+      "bar_regen": "({amount}/秒)",
       "ranking_text": "{world}排名：{rank}",
       "stat_text": "{name} {value}",
       "stat_name_strength": "力量",
@@ -125,35 +126,30 @@
   "stats": {
     "long_name": {
       "max_health": "最大生命",
-      "health": "生命",
-      "health_regen_flat": "生命回復",
-      "health_regen_proportion": "比例生命回復",
-      "health_regen_flat_idle": "戰外生命回復",
-      "health_regen_proportion_idle": "戰外比例生命回復",
       "max_stamina": "最大體力",
-      "stamina": "體力",
-      "stamina_regen_flat": "體力恢復",
-      "stamina_regen_proportion": "比例體力恢復",
-      "stamina_regen_flat_idle": "戰外體力恢復",
-      "stamina_regen_proportion_idle": "戰外比例體力恢復",
       "max_mana": "最大魔力",
-      "mana": "魔力",
-      "mana_regen_flat": "魔力恢復",
-      "mana_regen_proportion": "比例魔力恢復",
-      "mana_regen_flat_idle": "戰外魔力恢復",
-      "mana_regen_proportion_idle": "戰外比例魔力恢復",
       "max_inner_qi": "最大內氣",
-      "inner_qi": "內氣",
-      "inner_qi_regen_flat": "內氣恢復",
-      "inner_qi_regen_proportion": "比例內氣恢復",
-      "inner_qi_regen_flat_idle": "戰外內氣恢復",
-      "inner_qi_regen_proportion_idle": "戰外比例內氣恢復",
       "max_spirit": "最大魂力",
-      "spirit": "魂力",
+      "health_regen_flat": "生命回復",
+      "health_regen_proportion": "生命比例回復",
+      "health_regen_flat_idle": "脫戰生命回復",
+      "health_regen_proportion_idle": "脫戰生命比例回復",
+      "stamina_regen_flat": "體力回復",
+      "stamina_regen_proportion": "體力比例回復",
+      "stamina_regen_flat_idle": "脫戰體力回復",
+      "stamina_regen_proportion_idle": "脫戰體力比例回復",
+      "mana_regen_flat": "魔力回復",
+      "mana_regen_proportion": "魔力比例回復",
+      "mana_regen_flat_idle": "脫戰魔力回復",
+      "mana_regen_proportion_idle": "脫戰魔力比例回復",
+      "inner_qi_regen_flat": "內氣回復",
+      "inner_qi_regen_proportion": "內氣比例回復",
+      "inner_qi_regen_flat_idle": "脫戰內氣回復",
+      "inner_qi_regen_proportion_idle": "脫戰內氣比例回復",
       "spirit_regen_flat": "魂力回復",
-      "spirit_regen_proportion": "比例魂力回復",
-      "spirit_regen_flat_idle": "戰外魂力回復",
-      "spirit_regen_proportion_idle": "戰外比例魂力回復",
+      "spirit_regen_proportion": "魂力比例回復",
+      "spirit_regen_flat_idle": "脫戰魂力回復",
+      "spirit_regen_proportion_idle": "脫戰魂力比例回復",
       "strength": "力量",
       "constitution": "體質",
       "agility": "敏捷",
@@ -184,7 +180,23 @@
       "level_xp": "等級經驗獲取",
       "all_skill_xp": "全技能經驗獲取",
       "cultivation_qi": "修法速度"
+    },
+    "source_name": {
+      "base": "基礎",
+      "level": "等級",
+      "titles": "稱號",
+      "skills": "技能"
     }
+  },
+  "rarities": {
+    "common": "一般",
+    "uncommon": "不凡",
+    "rare": "稀有",
+    "epic": "史詩",
+    "legendary": "傳奇",
+    "mythic": "神話",
+    "transcendental": "超越級",
+    "divine": "神級"
   },
   "log": {
     "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDER example of item gain text",
@@ -318,12 +330,63 @@
       "no_title": {
         "title": "目前未選擇稱號",
         "description": "你可以使用稱號下拉選單來更換稱號。無論選擇哪個稱號，你擁有的所有稱號效果都會持續生效。"
-      }
+      },
+      "rarity_line": "{rarity}稱號"
     },
     "effects": {
       "stat_bonuses": "屬性與經驗加成",
       "perks": "特性",
-      "multiplier_value": "×{value}"
+      "multiplier_value": "×{value}",
+      "exponent_value": "^{value}"
+    },
+    "sections": {
+      "related_stats": "相關屬性"
+    },
+    "breakdown": {
+      "heading": "{stat}的來源",
+      "flat": "固定",
+      "percent": "百分比",
+      "multiplier": "乘數",
+      "exponent": "指數",
+      "final_flat": "最終固定",
+      "final_percent": "最終百分比",
+      "final_multiplier": "最終乘數",
+      "final_exponent": "最終指數",
+      "total": "總計"
+    },
+    "balance": {
+      "heading": "{resource}收支",
+      "per_second": "{amount}/秒",
+      "flat": "固定回復",
+      "proportion": "比例回復（最大值的 {percent}）",
+      "flat_idle": "脫戰固定回復",
+      "proportion_idle": "脫戰比例回復（最大值的 {percent}）"
+    },
+    "bars": {
+      "xp": {
+        "name": "經驗",
+        "description": "你距離下一個等級的進度。填滿即可升級並變得更強。"
+      },
+      "hp": {
+        "name": "生命",
+        "description": "這是你的生命力，歸零即意味死亡。"
+      },
+      "st": {
+        "name": "體力",
+        "description": "你的體能耐力，進行費力的活動時會被消耗。體力耗盡會對戰鬥能力有極大的影響，戰鬥前建議先休息好！"
+      },
+      "mp": {
+        "name": "魔力",
+        "description": "用於施展魔法的神秘能量。它自己會恢復，但睡覺與冥想才是最佳的恢復方式。"
+      },
+      "qi": {
+        "name": "內氣",
+        "description": "真正屬於你的靈氣，稱之為內氣。用於驅動功法，只能以修練回復。"
+      },
+      "sp": {
+        "name": "魂力",
+        "description": "你的靈魂穩定性，使用魂術與承受靈魂攻擊都會消耗魂力。小提醒：靈魂傷害是不可小懼的！"
+      }
     }
   }
 }

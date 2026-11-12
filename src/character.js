@@ -286,6 +286,77 @@ character.recalculateStats = function () {
     });
 }
 
+//Sources that can appear in the bonus tables, in the order stat breakdowns list them.
+//Every source used in a bonus table must be listed here, so add new ones as they get implemented.
+character.bonus_sources = ["level", "titles", "skills"];
+
+//Bonus types in calculation order. table = where they live, combine = how the values of one stat combine.
+const bonus_types = [
+    { key: "flat", kind: "flat", table: "flat_bonuses", combine: "sum" },
+    { key: "percent", kind: "percent", table: "percent_bonuses", combine: "sum" },
+    { key: "multiplier", kind: "multiplier", table: "multiplier_bonuses", combine: "product" },
+    { key: "exponent", kind: "exponent", table: "exponent_bonuses", combine: "product" },
+    { key: "final_flat", kind: "flat", table: "final_flat_bonuses", combine: "sum" },
+    { key: "final_percent", kind: "percent", table: "final_percent_bonuses", combine: "sum" },
+    { key: "final_multiplier", kind: "multiplier", table: "final_multiplier_bonuses", combine: "product" },
+    { key: "final_exponent", kind: "exponent", table: "final_exponent_bonuses", combine: "product" },
+];
+
+//Everything a stat breakdown needs: { base, columns: [{ key, kind, values: { source: value }, total }], sources, final }
+//Columns without any bonuses are left out, except flat (it holds the base value). Sources without bonuses are left out.
+character.getStatBreakdown = function (stat_key) {
+    const columns = bonus_types
+        .map(({ key, kind, table, combine }) => {
+            const values = character.stats[table][stat_key] ?? {};
+            const numbers = Object.values(values);
+            return {
+                key: key,
+                kind: kind,
+                values: values,
+                total: combine === "sum"
+                    ? numbers.reduce((sum, value) => sum + value, 0)
+                    : numbers.reduce((product, value) => product * value, 1),
+            };
+        })
+        .filter((column) => column.key === "flat" || Object.keys(column.values).length > 0);
+
+    const used_sources = new Set(columns.flatMap((column) => Object.keys(column.values)));
+    const unknown_sources = [...used_sources].filter((source) => !character.bonus_sources.includes(source));
+    unknown_sources.forEach((source) => console.warn(`[stats] Bonus source "${source}" on "${stat_key}" is not listed in character.bonus_sources`));
+    //known sources in their listed order, then unknown ones so the totals still add up
+    const sources = [...character.bonus_sources.filter((source) => used_sources.has(source)), ...unknown_sources];
+
+    return {
+        base: getStatPath(character.base_stats, stat_key),
+        columns: columns,
+        sources: sources,
+        final: character.calculateStat(stat_key),
+    };
+}
+
+//PLACEHOLDER: combat doesn't exist yet, so the character is never in combat
+character.isInCombat = function () {
+    return false;
+}
+
+//Regeneration of a resource ("health", "stamina", "mana", "inner_qi", "spirit") per second.
+//Idle regeneration only counts when not in combat. Proportional regeneration is a fraction of the max resource.
+character.getRegenPerSecond = function (resource) {
+    const stats = character.stats.total;
+    const max = stats[`max_${resource}`];
+    const parts = [
+        { key: "flat", stat: `${resource}_regen_flat`, amount: stats[`${resource}_regen_flat`] },
+        { key: "proportion", stat: `${resource}_regen_proportion`, rate: stats[`${resource}_regen_proportion`], amount: stats[`${resource}_regen_proportion`] * max },
+    ];
+    if (!character.isInCombat()) {
+        parts.push(
+            { key: "flat_idle", stat: `${resource}_regen_flat_idle`, amount: stats[`${resource}_regen_flat_idle`] },
+            { key: "proportion_idle", stat: `${resource}_regen_proportion_idle`, rate: stats[`${resource}_regen_proportion_idle`], amount: stats[`${resource}_regen_proportion_idle`] * max },
+        );
+    }
+    return { parts: parts, total: parts.reduce((sum, part) => sum + part.amount, 0) };
+}
+
 //PLACEHOLDER: returns the character's ranking position in a world (1 = strongest).
 //Will eventually use combat power and the world's population. For now it's a fixed starting rank.
 character.getRanking = function (world = character.current_world) {
