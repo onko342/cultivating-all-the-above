@@ -1,5 +1,7 @@
 "use strict";
 
+import { tHTML } from "./localization.js";
+
 //Tooltip system. Any element can get a tooltip with setTooltip(); one shared box is reused for all of them.
 //Content is returned by a function (called on every show/refresh) so it always reflects live values.
 //
@@ -54,9 +56,19 @@ export function hideTooltip() {
     if (box) box.hidden = true;
 }
 
+//Static tooltips: an element with data-tooltip-key="some.locale.key" shows that locale text, no registration needed
+function getKeyedContent(element) {
+    const key = element.dataset?.tooltipKey;
+    return key ? { body: tHTML(key) } : null;
+}
+
+function hasTooltip(element) {
+    return tooltip_sources.has(element) || element.dataset?.tooltipKey !== undefined;
+}
+
 function findOwner(node) {
     for (let element = node; element; element = element.parentElement) {
-        if (tooltip_sources.has(element)) return element;
+        if (hasTooltip(element)) return element;
     }
     return null;
 }
@@ -136,7 +148,7 @@ function buildSection(section) {
 //Builds the box contents. Returns false when there is nothing to show.
 function renderContent() {
     const getContent = tooltip_sources.get(state.owner);
-    let content = getContent ? getContent() : null;
+    let content = getContent ? getContent() : getKeyedContent(state.owner);
     if (content === null || content === undefined || content === "") return false;
     if (typeof content === "string" || content instanceof Node) content = { body: content };
 
