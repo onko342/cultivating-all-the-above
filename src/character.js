@@ -357,8 +357,14 @@ character.getRegenPerSecond = function (resource) {
     return { parts: parts, total: parts.reduce((sum, part) => sum + part.amount, 0) };
 }
 
+//PLACEHOLDER: the character's overall strength (previously "combat power"). The world ranking will be based on it.
+//Always 1 until the power rating formula exists.
+character.getPowerRating = function () {
+    return 1;
+}
+
 //PLACEHOLDER: returns the character's ranking position in a world (1 = strongest).
-//Will eventually use combat power and the world's population. For now it's a fixed starting rank.
+//Will eventually use the power rating and the world's population. For now it's a fixed starting rank.
 character.getRanking = function (world = character.current_world) {
     return 2.4e12;
 }

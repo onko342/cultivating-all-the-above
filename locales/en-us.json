@@ -198,6 +198,26 @@
     "transcendental": "Transcendental",
     "divine": "Divine"
   },
+  "ranking": {
+    "tiers": {
+      "ultimate": "Ultimate",
+      "prime": "Prime",
+      "unrivaled": "Unrivaled",
+      "eternal": "Eternal",
+      "legend": "Legend",
+      "champion": "Champion",
+      "challenger": "Challenger",
+      "grandmaster": "Grandmaster",
+      "master": "Master",
+      "diamond": "Diamond",
+      "emerald": "Emerald",
+      "platinum": "Platinum",
+      "gold": "Gold",
+      "silver": "Silver",
+      "bronze": "Bronze",
+      "iron": "Iron"
+    }
+  },
   "log": {
     "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDERS",
     "item_gained": "You gained {item} x{count}.",
@@ -387,6 +407,13 @@
         "name": "Spirit",
         "description": "The stability of your soul, using soul arts and receiving soul attacks both take from this pool. Reminder: Soul damage is not to be taken lightly."
       }
+    },
+    "ranking": {
+      "title": "Power Ranking",
+      "description": "Where you stand in this world, in terms of pure power. An excellent measure of progress, but don't assume a higher ranking means a sure victory!",
+      "tier_next": "You are in the {tier} tier. Reach {rank} to achieve {next_tier} status.",
+      "tier_top": "You are in the {tier} tier, which means you are the strongest in the world!",
+      "power_rating": "Power Rating: {value}"
     }
   }
 }

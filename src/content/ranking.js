@@ -4,7 +4,7 @@
 //Tiers are listed best to worst and each one uses either:
 //  max_rank: an absolute cutoff ("rank <= max_rank"), e.g. the podium positions
 //  top_fraction: a cutoff as a fraction of the world's population, so changing a population rescales the tier
-//Everything here is a PLACEHOLDER until world content and the combat power formula exist.
+//Everything here is a PLACEHOLDER until world content and the power rating formula exist.
 export const world_rankings = {
     modern: {
         population: 3e12, //placeholder pool: mostly wildlife, humanoids are only ~10 billion of it
@@ -30,15 +30,33 @@ export const world_rankings = {
     //cultivation: { population: ..., tiers: [...] } goes here later
 };
 
+//Highest rank (worst position) that still counts as being in a tier
+function getTierMaxRank(tier, population) {
+    //rounded so float noise (1e-8 * 3e12 = 30000.000000000004) can't push an exact boundary rank into the wrong tier
+    return tier.max_rank ?? Math.round(tier.top_fraction * population);
+}
+
 //Returns the tier name (e.g. "iron") for a rank position in a world, or null for an unknown world
 export function getLeagueTier(world, rank) {
     const config = world_rankings[world];
     if (!config) return null;
 
     for (const tier of config.tiers) {
-        //rounded so float noise (1e-8 * 3e12 = 30000.000000000004) can't push an exact boundary rank into the wrong tier
-        const max_rank = tier.max_rank ?? Math.round(tier.top_fraction * config.population);
-        if (rank <= max_rank) return tier.name;
+        if (rank <= getTierMaxRank(tier, config.population)) return tier.name;
     }
     return config.tiers[config.tiers.length - 1].name; //rank beyond the population: worst tier
+}
+
+//The next tier up from the one a rank is in: { name, max_rank } where max_rank is the rank needed to reach it.
+//Returns null when already in the top tier (or for an unknown world).
+export function getNextLeagueTier(world, rank) {
+    const config = world_rankings[world];
+    if (!config) return null;
+
+    const current_tier = getLeagueTier(world, rank);
+    const index = config.tiers.findIndex((tier) => tier.name === current_tier);
+    if (index <= 0) return null;
+
+    const next_tier = config.tiers[index - 1];
+    return { name: next_tier.name, max_rank: getTierMaxRank(next_tier, config.population) };
 }

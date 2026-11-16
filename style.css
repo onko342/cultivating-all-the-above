@@ -939,3 +939,11 @@ body {
 .tooltip-data-table .tooltip-total-row:first-child td {
     border-top: none;
 }
+
+.tooltip-body p {
+    margin: 0 0 6px;
+}
+
+    .tooltip-body p:last-child {
+        margin-bottom: 0;
+    }

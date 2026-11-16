@@ -195,8 +195,28 @@
     "epic": "史詩",
     "legendary": "傳奇",
     "mythic": "神話",
-    "transcendental": "超越級",
-    "divine": "神級"
+    "transcendental": "超越",
+    "divine": "真神"
+  },
+  "ranking": {
+    "tiers": {
+      "ultimate": "終極",
+      "prime": "至高",
+      "unrivaled": "無雙",
+      "eternal": "永恆",
+      "legend": "傳奇",
+      "champion": "冠軍",
+      "challenger": "挑戰者",
+      "grandmaster": "宗師",
+      "master": "大師",
+      "diamond": "鑽石",
+      "emerald": "翡翠",
+      "platinum": "白金",
+      "gold": "黃金",
+      "silver": "白銀",
+      "bronze": "青銅",
+      "iron": "黑鐵"
+    }
   },
   "log": {
     "DUMMY-ENTRY-COMMENT-1": "Below: PLACEHOLDER example of item gain text",
@@ -387,6 +407,13 @@
         "name": "魂力",
         "description": "你的靈魂穩定性，使用魂術與承受靈魂攻擊都會消耗魂力。小提醒：靈魂傷害是不可小懼的！"
       }
+    },
+    "ranking": {
+      "title": "戰力排名",
+      "description": "你在這個世界中的純粹實力所處的位置。是衡量進展的絕佳指標，但別以為排名更高就代表一定能獲勝！",
+      "tier_next": "你目前位於{tier}段位。排名達到 {rank} 即可晉升至{next_tier}段位。",
+      "tier_top": "你目前位於{tier}段位，代表你是世界最強者！",
+      "power_rating": "戰力評分：{value}"
     }
   }
 }

@@ -7,7 +7,7 @@ import { getRarityName } from "./content/rarities.js";
 import { bindDisplay, bindVisibility, bindBar, updateDisplay, setStyleClass, formatNumber, applyCompactSettings, styledSpan } from "./display.js";
 import { t, tHTML, unwrapHTML, escapeHTML } from "./localization.js";
 import { settings } from "./content/settings.js";
-import { getLeagueTier } from "./content/ranking.js";
+import { getLeagueTier, getNextLeagueTier } from "./content/ranking.js";
 import { setTooltip, hideTooltip } from "./tooltip.js";
 import { recalculateEffects } from "./effects.js";
 
@@ -436,6 +436,36 @@ function getRealmTooltip(realm_path) {
     };
 }
 
+//The description's three parts as paragraphs: explanation, league tier (with the next tier's requirement), power rating
+function getRankingTooltip() {
+    const world = character.current_world;
+    const rank = character.getRanking(world);
+    const tier = getLeagueTier(world, rank);
+    if (!tier) return null; //unknown world
+
+    const next_tier = getNextLeagueTier(world, rank);
+    const tierSpan = (tier_name) => styledSpan("league", tier_name, t(`ranking.tiers.${tier_name}`));
+
+    const tier_line = next_tier
+        ? tHTML("tooltips.ranking.tier_next", {
+            tier: tierSpan(tier),
+            rank: styledSpan("league", next_tier.name, `#${formatNumber(next_tier.max_rank, ranking_max_digits, 0)}`),
+            next_tier: tierSpan(next_tier.name),
+        })
+        : tHTML("tooltips.ranking.tier_top", { tier: tierSpan(tier) });
+
+    const paragraphs = [
+        tHTML("tooltips.ranking.description"),
+        tier_line,
+        tHTML("tooltips.ranking.power_rating", { value: formatNumber(character.getPowerRating()) }),
+    ];
+
+    return {
+        title: tHTML("tooltips.ranking.title"),
+        body: paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join(""),
+    };
+}
+
 export function initStatsPage() {
     bindDisplay("level", "level-text",
         () => t("ui.stats_box.level_text", { level: formatNumber(leveling.character_level, 9) }),
@@ -484,6 +514,7 @@ export function initStatsPage() {
         },
         { html: true, fit_text: true }
     );
+    setTooltip("ranking-line", getRankingTooltip);
 
     initStatGroups();
     applyCompactSettings();
